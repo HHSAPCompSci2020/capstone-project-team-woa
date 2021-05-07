@@ -19,7 +19,7 @@ Instructions:
 When the program runs, the player will see a grid and how many blockade materials one has. 
 The player will prepare their grid by placing walls and plants. 
 A regular plant will cost 10 coins, and there will be a set number of walls.
-By selecting the type of plant by clicking on a button in a sidebar, the player can then clicking on a grid location that is a wall to place the plant.
+By selecting the type of plant by clicking on a button in a sidebar, the player can then click on a grid location that is a wall to place the plant.
 Plants are only able to be placed on walls. Once the player presses the begin button, a wave of ants will begin to appear. 
 When an ant dies, it gives a certain number of coins, which the player can use to place more plants.
 
