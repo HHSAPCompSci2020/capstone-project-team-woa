@@ -5,12 +5,18 @@ import java.util.*;
 
 public class DrawingSurface {
 
-    Grid grid;
+    private Grid grid;
 
+    /**
+     * Sets grid to a new GridTemplate.
+     */
     public DrawingSurface() {
 
     }
 
+    /**
+     * Updates the graphics
+     */
     public void draw() {
 
     }
