@@ -1,5 +1,5 @@
 /**
- * A version of a plant that shoots a beam of energy at any insect that is nearby. 
+ * A  plant that attacks any insect that is nearby. 
  * As it levels up, damage and range increase
  * @author Dhruv Masurekar
  * */
