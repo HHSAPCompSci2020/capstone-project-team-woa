@@ -19,6 +19,7 @@ public class EnergyPlant extends Plant {
      * Shoots at ants that are in the range of this plant and deals damageDealt
      * damage to the insect
      */
+    @Override
     public void shoot() {
 
     }
