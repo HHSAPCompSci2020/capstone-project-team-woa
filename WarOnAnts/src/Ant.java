@@ -24,7 +24,7 @@ public class Ant extends Insect {
      * @param y Y coordinate of the location
      * @return returns the points which the ant must take to get to the fruit fastest 
      * */
-    @Override
+    
     public ArrayList<Point> findOptimalPath(int x, int y) {
         return null;
     } 
