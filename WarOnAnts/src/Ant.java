@@ -1,18 +1,14 @@
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Ant extends Insect{
+public class Ant extends Insect {
 
+    public Ant() {
+        super();
+    }
 
-	
-	public Ant() {
-		super();
-	}
-	
-	public void act() {
-		
-	}
-	
-	
-	
+    public void act() {
+
+    }
+
 }

@@ -2,7 +2,7 @@
 public class Main {
 
 	
-	
+	DrawingSurface surface;
 	
 	public static void main(String[] args) {
 		

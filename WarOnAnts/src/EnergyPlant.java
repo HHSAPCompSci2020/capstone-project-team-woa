@@ -1,13 +1,12 @@
 
 public class EnergyPlant extends Plant {
 
-	
-	public EnergyPlant() {
-		super();
-	}
-	
-	public void shoot() {
-		
-	}
-	
+    public EnergyPlant() {
+        super();
+    }
+
+    public void shoot() {
+
+    }
+
 }

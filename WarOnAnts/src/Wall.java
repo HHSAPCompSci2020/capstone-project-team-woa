@@ -1,10 +1,10 @@
 
 public class Wall {
 
-	private int xCoor, yCoor;
-	
-	public Wall() {
-		
-	}
-	
+    private int xCoor, yCoor;
+
+    public Wall() {
+
+    }
+
 }
