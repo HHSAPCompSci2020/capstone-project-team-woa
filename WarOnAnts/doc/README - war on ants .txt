@@ -56,5 +56,5 @@ Class List:
 Credits:
 
 
-* William: Ant, Insect, Grid, and DrawingSurface elements.
-* Dhruv: Plant, EnergyPlant, Fruit, and Wall classes
+* William: Ant, Insect, Grid, and DrawingSurface elements. Added javadoc comments and created the uml.png and the javadoc .html
+* Dhruv: Plant, EnergyPlant, Fruit, and Wall classes. Created all the classes and added into the project
