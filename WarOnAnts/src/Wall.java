@@ -18,4 +18,11 @@ public class Wall {
 
     }
 
+    public int getX() {
+        return xCoor;
+    }
+    
+    public int getY() {
+        return yCoor;
+    }
 }

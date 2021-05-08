@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+
+import processing.core.PApplet;
+
 /**
  * A version of a plant that shoots a beam of energy at any insect that is
  * nearby. As it levels up, damage and range increase
@@ -11,8 +15,8 @@ public class EnergyPlant extends Plant {
      * Initializes the EnergyPlant by giving a value to the field
      * 
      */
-    public EnergyPlant() {
-        super();
+    public EnergyPlant(Wall home) {
+        super(home);
     }
 
     /**
@@ -20,7 +24,8 @@ public class EnergyPlant extends Plant {
      * damage to the insect
      */
     @Override
-    public void shoot() {
+    public void shoot(PApplet marker, ArrayList<Insect> insects) {
+        super.shoot(marker, insects);
 
     }
 
