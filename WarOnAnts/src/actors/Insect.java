@@ -19,9 +19,9 @@ public class Insect {
      * Creates an insect and initializes the initial coordinates
      * 
      */
-    public Insect(int x, int y) {
-        this.row = x;
-        this.col = y;
+    public Insect(int r, int c) {
+        this.row = r;
+        this.col = c;
     }
 
     /**
@@ -32,8 +32,10 @@ public class Insect {
      * @return returns the points which the insect must take to get to the fruit
      *         fastest
      */
-    public ArrayList<Point> findOptimalPath(int x, int y) {
-        return null;
+    public ArrayList<Point> findOptimalPath(int r, int c, char[][] grid) {
+        ArrayList<Point> result = findNext(r, c, grid);
+
+        return result;
     }
 
     public int getX() {
