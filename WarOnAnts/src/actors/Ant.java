@@ -8,8 +8,8 @@ import java.util.ArrayList;
  * */
 public class Ant extends Insect {
 
-    public Ant() {
-        super();
+    public Ant(int r, int c) {
+        super(r, c);
     }
 
     /**
