@@ -1,4 +1,5 @@
 package grid;
+
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -12,14 +13,14 @@ import template.GridTemplate;
  * Creates a grid of squares which is used to determine the location of all the
  * plants, ants, and walls that are currently present in the game.
  * 
- * @author William Hyun
+ * @author William Hyun and co-author Dhruv Masurekar
  */
 public class Grid extends GridTemplate {
 
     private char[][] grid2 = new char[20][20];
-    private char[][] grid3 = new char[20][20];
-    private Point p;
     
+    private Point p;
+
     private ArrayList<Insect> insects;
     private ArrayList<Plant> plants;
     private ArrayList<Wall> walls;
@@ -32,13 +33,12 @@ public class Grid extends GridTemplate {
     public Grid() {
         super();
     }
-    
+
     public Grid(String filename) {
         super(20, 20, filename);
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 grid2[i][j] = grid[i][j];
-                grid3[i][j] = grid[i][j];
             }
         }
     }
@@ -64,4 +64,12 @@ public class Grid extends GridTemplate {
 
     }
 
+    public void act() {
+
+       
+    }
+    
+    public char returnCharOfEntity(int row, int col) {
+        return grid2[row][col];
+    }
 }
