@@ -18,15 +18,4 @@ public class Ant extends Insect {
     public void act() {
 
     }
-
-    /**
-     * Finds and returns the shortest path through the maze from the input location to the fruit. 
-     * @param x X coordinate of the location 
-     * @param y Y coordinate of the location
-     * @return returns the points which the ant must take to get to the fruit fastest 
-     * */
-    
-    public ArrayList<Point> findOptimalPath(int x, int y) {
-        return null;
-    } 
 }
