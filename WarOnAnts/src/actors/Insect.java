@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Insect {
 
     protected ArrayList<Point> optimalPath;
-    protected int xCoor, yCoor;
+    protected int x, y;
 
     /**
      * Creates an insect and initializes the initial coordinates
@@ -32,5 +32,13 @@ public class Insect {
      */
     public ArrayList<Point> findOptimalPath(int x, int y) {
         return null;
+    }
+    
+    public int getX() {
+        return x;
+    }
+    
+    public int getY() {
+        return y;
     }
 }
