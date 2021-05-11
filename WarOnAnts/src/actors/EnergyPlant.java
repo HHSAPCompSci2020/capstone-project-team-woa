@@ -1,6 +1,7 @@
 package actors;
 import java.util.ArrayList;
 
+import grid.Grid;
 import processing.core.PApplet;
 
 /**
@@ -25,8 +26,8 @@ public class EnergyPlant extends Plant {
      * damage to the insect
      */
     @Override
-    public void shoot(PApplet marker, ArrayList<Insect> insects) {
-        super.shoot(marker, insects);
+    public void shoot(PApplet marker, Grid grid) {
+        super.shoot(marker, grid);
 
     }
 

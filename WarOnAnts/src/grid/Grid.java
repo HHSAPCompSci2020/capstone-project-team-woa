@@ -18,7 +18,7 @@ import template.GridTemplate;
 public class Grid extends GridTemplate {
 
     private char[][] grid2 = new char[20][20];
-    
+
     private Point p;
 
     private ArrayList<Insect> insects;
@@ -66,10 +66,17 @@ public class Grid extends GridTemplate {
 
     public void act() {
 
-       
     }
-    
-    public char returnCharOfEntity(int row, int col) {
-        return grid2[row][col];
+
+    public Insect returnInsect(int row, int col) {
+        //Checks every insect in the grid to see if they are at (row,col)
+        for(int i=0;i<insects.size();i++) {
+            if(insects.get(i).getY()==row&&insects.get(i).getX()==col) {
+                //return this insect if it is the correct one
+                return insects.get(i);
+            }
+        }
+        //return null if no such insect exists.
+        return null;
     }
 }
