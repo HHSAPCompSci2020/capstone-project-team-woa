@@ -1,4 +1,5 @@
 package actors;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -12,14 +13,15 @@ import java.util.ArrayList;
 public class Insect {
 
     protected ArrayList<Point> optimalPath;
-    protected int x, y;
+    protected int row, col;
 
     /**
      * Creates an insect and initializes the initial coordinates
      * 
      */
-    public Insect() {
-
+    public Insect(int x, int y) {
+        this.row = x;
+        this.col = y;
     }
 
     /**
@@ -33,12 +35,59 @@ public class Insect {
     public ArrayList<Point> findOptimalPath(int x, int y) {
         return null;
     }
-    
+
     public int getX() {
-        return x;
+        return row;
     }
-    
+
     public int getY() {
-        return y;
+        return col;
+    }
+
+    private ArrayList<Point> findNext(int x, int y, char[][] grid) {
+
+        if (!isValid(x, y, grid) || grid[x][y] == '!' || grid[x][y] == '#' || grid[x][y] == 'A' || grid[x][y] == '@') {
+            return null;
+        } else if (grid[x][y] == 'X') {
+            ArrayList<Point> list = new ArrayList<>();
+            return list;
+        } else if (grid[x][y] == '.') {
+            ArrayList<ArrayList<Point>> result = new ArrayList<>();
+            grid[x][y] = '!';
+            if (isValid(x + 1, y, grid))
+                result.add(0, findNext(x + 1, y, grid));
+            if (isValid(x - 1, y, grid)) {
+                result.add(0, findNext(x - 1, y, grid));
+            }
+            if (isValid(x, y + 1, grid))
+                result.add(0, findNext(x, y + 1, grid));
+            if (isValid(x, y - 1, grid)) {
+                result.add(0, findNext(x, y - 1, grid));
+            }
+
+            int minSize = Integer.MAX_VALUE;
+            int minPathIndex = -1;
+            for (int i = 0; i < result.size(); i++) {
+                if (result.get(i) != null && result.get(i).size() < minSize) {
+                    minSize = result.get(i).size();
+                    minPathIndex = i;
+                }
+            }
+            grid[x][y] = '.';
+            if (minPathIndex == -1) {
+                return null;
+            }
+
+            ArrayList<Point> m = result.get(minPathIndex);
+            m.add(0, new Point(x, y));
+            return m;
+        } else {
+            System.out.println("Unsupported char");
+            return null;
+        }
+    }
+
+    private boolean isValid(int x, int y, char[][] grid) {
+        return (x >= 0 && y >= 0 && x < grid.length && y < grid[0].length);
     }
 }
