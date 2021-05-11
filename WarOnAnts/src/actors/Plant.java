@@ -34,19 +34,7 @@ public class Plant {
      * damage
      */
     public void shoot(PApplet marker, ArrayList<Insect> insects) {
-        if (insects != null) {
-            int randIndex = (int) Math.random() * insects.size();
-
-            int insectX = 0;
-            int insectY = 0;
-
-//          insectX = insects.get(randIndex).getX();
-//          insectY = insects.get(randIndex).getY();
-
-            marker.line(insectX, insectY, home.getX(), home.getY());
-            
-//          insects.get(randIndex).removeFromGrid();
-        }
+        
     }
 
     /**
@@ -54,27 +42,28 @@ public class Plant {
      * close
      */
     public void act() {
-        
-        ArrayList<Insect> enemies = getSurroundingEnemies();
-        
-    }
 
-    private ArrayList<Insect> getSurroundingEnemies() {
         
-        //return getGrid().getNeighbors(home.getX(), home.getY());
-        return null;
+
     }
-    
 
     /**
      * Levels up which will increase damageDealt and range
      */
     public void levelUp() {
+        level++;
 
     }
-   
-    
-    public Grid getGrid() {
-        return null;
+
+    public int getRange() {
+
+        return range;
+    }
+
+    public int getX() {
+        return home.getX();
+    }
+    public int getY() {
+        return home.getY();
     }
 }
