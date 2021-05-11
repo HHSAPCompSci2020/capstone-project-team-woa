@@ -1,3 +1,4 @@
+package actors;
 /**
  * A fruit that is at the end of the maze created by the player The insects try
  * to get to the fruit and if they do and eat it completely, the game ends

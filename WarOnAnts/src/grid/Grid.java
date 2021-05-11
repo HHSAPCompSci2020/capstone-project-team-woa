@@ -1,6 +1,11 @@
+package grid;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import actors.Fruit;
+import actors.Insect;
+import actors.Plant;
+import actors.Wall;
 import template.GridTemplate;
 
 /**

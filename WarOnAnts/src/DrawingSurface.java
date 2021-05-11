@@ -4,10 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import challenges.GridTemplate;
-import challenges.labyrinth.Labyrinth;
-import challenges.paintcan.Image;
-import challenges.maze.Maze;
+import grid.Grid;
+import template.GridTemplate;
 import processing.core.PApplet;
 
 public class DrawingSurface extends PApplet {

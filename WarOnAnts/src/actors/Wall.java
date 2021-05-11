@@ -1,3 +1,4 @@
+package actors;
 
 /**
  * A wall that blocks ants and plants can be placed on this. Has a location in
