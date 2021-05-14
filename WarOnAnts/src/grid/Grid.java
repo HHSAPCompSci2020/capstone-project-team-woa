@@ -21,9 +21,9 @@ public class Grid extends GridTemplate {
 
     private Point p;
 
-    private ArrayList<Insect> insects;
-    private ArrayList<Plant> plants;
-    private ArrayList<Wall> walls;
+    private ArrayList<Insect> insects = new ArrayList<Insect>();
+    private ArrayList<Plant> plants= new ArrayList<Plant>();
+    private ArrayList<Wall> walls= new ArrayList<Wall>();
     private Fruit fruit;
 
     /**
@@ -38,9 +38,25 @@ public class Grid extends GridTemplate {
         super(20, 20, filename);
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                grid2[i][j] = grid[i][j];
+                grid2[i][j] = grid[i][j];   
             }
         }
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 'I') {
+                    Insect ins = new Insect(i,j, grid);
+                    insects.add(ins);
+                } else if (grid[i][j] == 'P') {
+                    Wall w = new Wall(i,j);
+                    Plant p = new Plant(w);
+                    plants.add(p);
+                } else if (grid[i][j] == '#') {
+                    Wall w = new Wall(i,j);
+                    walls.add(w);
+                }
+            }
+        }
+        
     }
 
     /**
@@ -87,9 +103,11 @@ public class Grid extends GridTemplate {
     }
 
     public void act() {
-        for (Insect i : insects) {
-            i.act();
-            i.findOptimalPath(i.getRow(), i.getCol(), grid);
+        if (insects != null) {
+            for (Insect i : insects) {
+                i.findOptimalPath(i.getRow(), i.getCol(), grid);
+                i.act();
+            }
         }
     }
 
