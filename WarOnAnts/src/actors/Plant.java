@@ -26,7 +26,7 @@ public class Plant {
     public Plant(Wall wall) {
         home = wall;
         range = 1;
-        damageDealt = 1;
+        damageDealt = 10;
 
     }
 
@@ -59,10 +59,12 @@ public class Plant {
         int insectCol = neighbors.get(randIndex).getCol();
 
         // Draw a line from the plant to the insect
+        
         marker.line(getRow(), getCol(), insectRow, insectCol);
         
-        // Kill the insect by removing it from grid; 
-        g.remove(insectRow, insectCol);
+        // Does damage to the insect
+        neighbors.get(randIndex).takeDamage(damageDealt);
+        
 
     }
 
@@ -100,6 +102,9 @@ public class Plant {
      */
     public void levelUp() {
         level++;
+        if(level<4) {
+            range++;}
+        
 
     }
     /**
