@@ -18,8 +18,10 @@ public class Insect {
     private int health;
 
     /**
-     * Creates an insect and initializes the initial coordinates
      * 
+     * @param r row of the Insect
+     * @param c column of the Insect
+     * @param grid grid
      */
     public Insect(int r, int c, char[][] grid) {
         this.row = r;
@@ -31,8 +33,8 @@ public class Insect {
     /**
      * Finds and returns the shortest path from the input location to the fruit.
      * 
-     * @param x X coordinate of the location
-     * @param y Y coordinate of the location
+     * @param r row of the location
+     * @param c column of the location
      * @return returns the points which the insect must take to get to the fruit
      *         fastest
      */
