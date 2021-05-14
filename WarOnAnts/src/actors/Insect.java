@@ -49,9 +49,10 @@ public class Insect {
     
     public void act() {
         System.out.println(optimalPath.toString());
-        Point p = optimalPath.get(0);
+        Point p = optimalPath.get(1);
         row = p.x;
         col = p.y;
+        grid[row][col] = 'I';
     }
 
     private ArrayList<Point> findNext(int x, int y, char[][] grid) {
