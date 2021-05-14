@@ -23,7 +23,7 @@ public class Insect {
     public Insect(int r, int c, char[][] grid) {
         this.row = r;
         this.col = c;
-        grid = new char[20][20];
+        this.grid = grid;
     }
 
     /**
@@ -56,12 +56,12 @@ public class Insect {
 
     private ArrayList<Point> findNext(int x, int y, char[][] grid) {
 
-        if (!isValid(x, y, grid) || grid[x][y] == '!' || grid[x][y] == '#' || grid[x][y] == 'A' || grid[x][y] == '@' || grid[x][y] == 'I') {
+        if (!isValid(x, y, grid) || grid[x][y] == '!' || grid[x][y] == '#' || grid[x][y] == 'A' || grid[x][y] == '@') {
             return null;
         } else if (grid[x][y] == 'X') {
             ArrayList<Point> list = new ArrayList<>();
             return list;
-        } else if (grid[x][y] == '.') {
+        } else if (grid[x][y] == '.' || grid[x][y] == 'I') {
             ArrayList<ArrayList<Point>> result = new ArrayList<>();
             grid[x][y] = '!';
             if (isValid(x + 1, y, grid))
