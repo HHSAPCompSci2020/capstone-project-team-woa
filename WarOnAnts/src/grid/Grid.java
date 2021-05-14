@@ -111,22 +111,5 @@ public class Grid extends GridTemplate {
             }
         }
     }
-    /**
-     * Returns the insect given its row and column
-     * @return an insect at grid[row][col] if it exists, else it returns null
-     */
-    public Insect returnInsect(int row, int col) {
-
-        // Checks every insect in the grid to see if they are at (row,col)
-
-        if (grid[row][col] == 'I') {
-            for (int i = 0; i < insects.size(); i++) {
-                if (insects.get(i).getRow() == row && insects.get(i).getCol() == col) {
-                    // return this insect if it is the correct one
-                    return insects.get(i);
-                }
-            }
-        }
-        return null;
-    }
+    
 }
