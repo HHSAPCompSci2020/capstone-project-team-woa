@@ -25,7 +25,8 @@ public class EnergyPlant extends Plant {
      * Shoots at ants that are in the range of this plant and deals damageDealt
      * damage to the insect
      * @param marker This marker is used to draw the laser
-     * @param grid The grid is used to find the locations of the insect and shoot them
+     * @param insects The insects that are in the grid
+     * 
      */
     @Override
     public void shoot(PApplet marker,ArrayList<Insect> insects) {

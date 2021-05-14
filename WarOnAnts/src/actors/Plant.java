@@ -35,7 +35,7 @@ public class Plant {
      * damage
      * 
      * @param marker The PApplet that draws the beam
-     * @param g      The grid that houses the ants
+     * @param insects The insects that are in the grid
      */
     public void shoot(PApplet marker, ArrayList<Insect> insects) {
 
@@ -71,6 +71,8 @@ public class Plant {
     /**
      * The plant continues to act, which includes shooting insects that get too
      * close
+     * @param m The PApllet used to draw the beam;
+     * @param insects The insects that are in the grid
      */
     public void act(PApplet m, ArrayList<Insect> insects) {
         if (hasNeighbor(insects)) {
@@ -81,7 +83,7 @@ public class Plant {
     /**
      * Checks if there is at least one insect in the plant's range
      * 
-     * @param g The grid that houses all the insects
+     * @param insects The insects that are in the grid
      * @return Returns true if there is at least one insect in range, false
      *         otherwise
      */
@@ -140,8 +142,7 @@ public class Plant {
 
     /**
      * Returns the insect given its row and column
-     * 
-     * @return an insect at grid[row][col] if it exists, else it returns null
+     * @return an insect at with specified location if it exists, else it returns null
      */
     public Insect returnInsect(int row, int col, ArrayList<Insect> insects) {
 
