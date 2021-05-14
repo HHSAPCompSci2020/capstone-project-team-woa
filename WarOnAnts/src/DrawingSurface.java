@@ -39,6 +39,9 @@ public class DrawingSurface extends PApplet {
                 // function
             }
         }
+        if (mouseButton == RIGHT) {
+            grid.act();
+        }
     }
 
 }

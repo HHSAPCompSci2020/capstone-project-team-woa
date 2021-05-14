@@ -12,16 +12,18 @@ import java.util.ArrayList;
 
 public class Insect {
 
-    protected ArrayList<Point> optimalPath;
-    protected int row, col;
+    private ArrayList<Point> optimalPath;
+    private int row, col;
+    private char[][] grid;
 
     /**
      * Creates an insect and initializes the initial coordinates
      * 
      */
-    public Insect(int r, int c) {
+    public Insect(int r, int c, char[][] grid) {
         this.row = r;
         this.col = c;
+        grid = new char[20][20];
     }
 
     /**
@@ -33,10 +35,8 @@ public class Insect {
      *         fastest
      */
     public ArrayList<Point> findOptimalPath(int r, int c, char[][] grid) {
-        ArrayList<Point> result = findNext(r, c, grid);
-
         optimalPath = findNext(r, c, grid);
-        return result;
+        return findNext(r, c, grid);
     }
 
     public int getRow() {
@@ -48,6 +48,7 @@ public class Insect {
     }
     
     public void act() {
+        System.out.println(optimalPath.toString());
         Point p = optimalPath.get(0);
         row = p.x;
         col = p.y;
@@ -55,7 +56,7 @@ public class Insect {
 
     private ArrayList<Point> findNext(int x, int y, char[][] grid) {
 
-        if (!isValid(x, y, grid) || grid[x][y] == '!' || grid[x][y] == '#' || grid[x][y] == 'A' || grid[x][y] == '@') {
+        if (!isValid(x, y, grid) || grid[x][y] == '!' || grid[x][y] == '#' || grid[x][y] == 'A' || grid[x][y] == '@' || grid[x][y] == 'I') {
             return null;
         } else if (grid[x][y] == 'X') {
             ArrayList<Point> list = new ArrayList<>();

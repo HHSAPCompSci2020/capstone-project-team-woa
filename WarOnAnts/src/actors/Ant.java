@@ -8,14 +8,7 @@ import java.util.ArrayList;
  * */
 public class Ant extends Insect {
 
-    public Ant(int r, int c) {
-        super(r, c);
-    }
-
-    /**
-     * Ant continues to act which includes changing location by following the shortest path.
-    */
-    public void act() {
-
+    public Ant(int r, int c, char[][] grid) {
+        super(r, c, grid);
     }
 }

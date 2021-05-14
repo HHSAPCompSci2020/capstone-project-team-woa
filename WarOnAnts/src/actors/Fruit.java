@@ -7,7 +7,7 @@ package actors;
  */
 public class Fruit {
 
-    private int health, xCoor, yCoor;
+    private int health, row, col;
 
     /**
      * Creates a fruit with 100 health and initializes coordinates
