@@ -27,8 +27,8 @@ public class Grid extends GridTemplate {
 
     
     /**
-     * Creates a grid and initializes fields by adding the respective objects to
-     * them
+     * Creates a Grid object and copies the information from the file given.
+     * @param filename the name of the map file being read
      */
     public Grid(String filename) {
         super(20, 20, filename);

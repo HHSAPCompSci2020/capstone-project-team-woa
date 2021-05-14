@@ -8,6 +8,12 @@ import java.util.ArrayList;
  * */
 public class Ant extends Insect {
 
+    /**
+     * 
+     * @param r row of the ant
+     * @param c column of the ant
+     * @param grid
+     */
     public Ant(int r, int c, char[][] grid) {
         super(r, c, grid);
     }
