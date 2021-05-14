@@ -12,7 +12,9 @@ public class Fruit {
 
     /**
      * Creates a fruit with 100 health and initializes coordinates
-     *
+     *@param health Starting health of the fruit
+     *@param r Row location of the fruit
+     *@param c Column location of the fruit
      */
     public Fruit(int health, int r, int c) {
         this.health = health;
@@ -23,6 +25,7 @@ public class Fruit {
 
     /**
      * Decreases the health of the fruit and once health reaches 0, the game ends.
+     * @param damge Damage the fruit takes
      */
     public void takeDamage(int damage) {
         health-=damage;

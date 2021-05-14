@@ -15,7 +15,7 @@ public class EnergyPlant extends Plant {
 
     /**
      * Initializes the EnergyPlant by giving a value to the field
-     * 
+     * @param home The home location of the plant
      */
     public EnergyPlant(Wall home) {
         super(home);
@@ -26,7 +26,6 @@ public class EnergyPlant extends Plant {
      * damage to the insect
      * @param marker This marker is used to draw the laser
      * @param insects The insects that are in the grid
-     * 
      */
     @Override
     public void shoot(PApplet marker,ArrayList<Insect> insects) {

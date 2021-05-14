@@ -20,7 +20,8 @@ public class Plant {
     protected int level;
 
     /**
-     * Initializes the Plant by giving a value to the field
+     * Initializes the Plant by giving a value to the field      
+     * @param wall The home location of the plant
      * 
      */
     public Plant(Wall wall) {
@@ -34,7 +35,7 @@ public class Plant {
      * Shoots at ants that are in the range of this plant and deals damageDealt
      * damage
      * 
-     * @param marker The PApplet that draws the beam
+     * @param marker  The PApplet that draws the beam
      * @param insects The insects that are in the grid
      */
     public void shoot(PApplet marker, ArrayList<Insect> insects) {
@@ -71,7 +72,8 @@ public class Plant {
     /**
      * The plant continues to act, which includes shooting insects that get too
      * close
-     * @param m The PApllet used to draw the beam;
+     * 
+     * @param m       The PApllet used to draw the beam;
      * @param insects The insects that are in the grid
      */
     public void act(PApplet m, ArrayList<Insect> insects) {
@@ -142,7 +144,12 @@ public class Plant {
 
     /**
      * Returns the insect given its row and column
-     * @return an insect at with specified location if it exists, else it returns null
+     * 
+     * @param row Row of desired insect
+     * @pram col Col of desired insect
+     * @param insects The insects that are in the grid
+     * @return an insect at with specified location if it exists, else it returns
+     *         null
      */
     public Insect returnInsect(int row, int col, ArrayList<Insect> insects) {
 
