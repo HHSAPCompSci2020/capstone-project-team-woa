@@ -1,4 +1,5 @@
 package actors;
+
 /**
  * A fruit that is at the end of the maze created by the player The insects try
  * to get to the fruit and if they do and eat it completely, the game ends
@@ -7,20 +8,32 @@ package actors;
  */
 public class Fruit {
 
-    private int health, xCoor, yCoor;
+    private int health, row, col;
 
     /**
      * Creates a fruit with 100 health and initializes coordinates
      *
      */
-    public Fruit() {
+    public Fruit(int health, int r, int c) {
+        this.health = health;
+        row = r;
+        col = c;
 
     }
 
     /**
      * Decreases the health of the fruit and once health reaches 0, the game ends.
      */
-    public void takeDamage() {
-
+    public void takeDamage(int damage) {
+        health-=damage;
+        if(health==0) {
+            die();
+        }        
+    }
+    /**
+     *Kills the plant and removes it from the grid
+     */
+    public void die() {
+        
     }
 }
