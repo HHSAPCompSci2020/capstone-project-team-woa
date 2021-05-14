@@ -19,13 +19,11 @@ public class Grid extends GridTemplate {
 
     private char[][] grid2 = new char[20][20];
 
-
     private ArrayList<Insect> insects = new ArrayList<Insect>();
-    private ArrayList<Plant> plants= new ArrayList<Plant>();
-    private ArrayList<Wall> walls= new ArrayList<Wall>();
+    private ArrayList<Plant> plants = new ArrayList<Plant>();
+    private ArrayList<Wall> walls = new ArrayList<Wall>();
     private Fruit fruit;
 
-    
     /**
      * Creates a grid and initializes fields by adding the respective objects to
      * them
@@ -34,28 +32,28 @@ public class Grid extends GridTemplate {
         super(20, 20, filename);
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                grid2[i][j] = grid[i][j];   
+                grid2[i][j] = grid[i][j];
             }
         }
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == 'I') {
-                    Insect ins = new Insect(i,j, grid);
+                    Insect ins = new Insect(i, j, grid);
                     insects.add(ins);
                 } else if (grid[i][j] == 'P') {
-                    Wall w = new Wall(i,j);
+                    Wall w = new Wall(i, j);
                     Plant p = new Plant(w);
                     plants.add(p);
                 } else if (grid[i][j] == '#') {
-                    Wall w = new Wall(i,j);
+                    Wall w = new Wall(i, j);
                     walls.add(w);
-                } else if(grid[i][j] == 'X') {
-                    fruit = new Fruit(100,i,j);
-                } 
-                
+                } else if (grid[i][j] == 'X') {
+                    fruit = new Fruit(100, i, j);
+                }
+
             }
         }
-        
+
     }
 
     /**
@@ -100,6 +98,7 @@ public class Grid extends GridTemplate {
     public void add(int r, int c, Object type) {
 
     }
+
     /**
      * Starts and continues to run the program
      */
@@ -111,8 +110,10 @@ public class Grid extends GridTemplate {
             }
         }
     }
+
     /**
      * Returns the insect given its row and column
+     * 
      * @return an insect at grid[row][col] if it exists, else it returns null
      */
     public Insect returnInsect(int row, int col) {
