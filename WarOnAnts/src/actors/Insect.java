@@ -15,6 +15,7 @@ public class Insect {
     private ArrayList<Point> optimalPath;
     private int row, col;
     private char[][] grid;
+    private int health;
 
     /**
      * Creates an insect and initializes the initial coordinates
@@ -24,6 +25,7 @@ public class Insect {
         this.row = r;
         this.col = c;
         this.grid = grid;
+        health = 10;
     }
 
     /**
@@ -39,20 +41,42 @@ public class Insect {
         return findNext(r, c, grid);
     }
 
+    /**
+     * 
+     * @return returns the row of the insect
+     */
     public int getRow() {
         return row;
     }
-
+    
+    /**
+     * 
+     * @return returns the column of the insect
+     */
     public int getCol() {
         return col;
     }
     
+    /**
+     * Makes the insect take a step forward if it isn't blocked from the fruit. 
+     * Does nothing if it is blocked from the fruit. 
+     */
     public void act() {
-        System.out.println(optimalPath.toString());
-        Point p = optimalPath.get(1);
-        row = p.x;
-        col = p.y;
-        grid[row][col] = 'I';
+        if (optimalPath != null) {
+            System.out.println(optimalPath.toString());
+            Point p = optimalPath.get(1);
+            row = p.x;
+            col = p.y;
+            grid[row][col] = 'I';
+        }
+    }
+    
+    /**
+     * 
+     * @param dmg the damage given to the insect.
+     */
+    public void takeDamage(int dmg) {
+        health -= dmg;
     }
 
     private ArrayList<Point> findNext(int x, int y, char[][] grid) {
