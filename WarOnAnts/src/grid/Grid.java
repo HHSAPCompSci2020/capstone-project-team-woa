@@ -19,21 +19,17 @@ public class Grid extends GridTemplate {
 
     private char[][] grid2 = new char[20][20];
 
-    private Point p;
 
     private ArrayList<Insect> insects = new ArrayList<Insect>();
     private ArrayList<Plant> plants= new ArrayList<Plant>();
     private ArrayList<Wall> walls= new ArrayList<Wall>();
     private Fruit fruit;
 
+    
     /**
      * Creates a grid and initializes fields by adding the respective objects to
      * them
      */
-    public Grid() {
-        super();
-    }
-
     public Grid(String filename) {
         super(20, 20, filename);
         for (int i = 0; i < grid.length; i++) {
@@ -53,7 +49,10 @@ public class Grid extends GridTemplate {
                 } else if (grid[i][j] == '#') {
                     Wall w = new Wall(i,j);
                     walls.add(w);
-                }
+                } else if(grid[i][j] == 'X') {
+                    fruit = new Fruit(100,i,j);
+                } 
+                
             }
         }
         
@@ -94,14 +93,16 @@ public class Grid extends GridTemplate {
     /**
      * Adds an object at the inputed x and y coordinates
      * 
-     * @param x    X coordinate of the object to be added
-     * @param y    Y coordinate of the object to be added
+     * @param r    Row location of the object to be added
+     * @param c    Column location of the object to be added
      * @param type the object that is to be added, can be insect, plant or wall
      */
-    public void add(int x, int y, Object type) {
+    public void add(int r, int c, Object type) {
 
     }
-
+    /**
+     * Starts and continues to run the program
+     */
     public void act() {
         if (insects != null) {
             for (Insect i : insects) {
@@ -110,7 +111,10 @@ public class Grid extends GridTemplate {
             }
         }
     }
-
+    /**
+     * Returns the insect given its row and column
+     * @return an insect at grid[row][col] if it exists, else it returns null
+     */
     public Insect returnInsect(int row, int col) {
 
         // Checks every insect in the grid to see if they are at (row,col)
