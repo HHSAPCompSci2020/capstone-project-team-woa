@@ -25,7 +25,7 @@ public class Fruit {
 
     /**
      * Decreases the health of the fruit and once health reaches 0, the game ends.
-     * @param damge Damage the fruit takes
+     * @param damage Damage the fruit takes
      */
     public void takeDamage(int damage) {
         health-=damage;

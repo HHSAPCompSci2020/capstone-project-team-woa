@@ -146,7 +146,7 @@ public class Plant {
      * Returns the insect given its row and column
      * 
      * @param row Row of desired insect
-     * @pram col Col of desired insect
+     * @param col Column of desired insect
      * @param insects The insects that are in the grid
      * @return an insect at with specified location if it exists, else it returns
      *         null
