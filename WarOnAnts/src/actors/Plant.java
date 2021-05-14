@@ -38,9 +38,9 @@ public class Plant {
 
         // Find neighboring insects
         ArrayList<Insect> neighbors = new ArrayList<Insect>();
-        for (int r = getY() - range; r < getY() + range + 1; r++) {
-            for (int c = getX() - range; c < getX() + range + 1; c++) {
-                if (r != getY() && c != getX())
+        for (int r = getRow() - range; r < getRow() + range + 1; r++) {
+            for (int c = getCol() - range; c < getCol() + range + 1; c++) {
+                if (r != getRow() && c != getCol())
                     neighbors.add(g.returnInsect(r, c));
 
             }
@@ -53,14 +53,14 @@ public class Plant {
             randIndex = (int) Math.random() * neighbors.size();
 
         }
-        int insectX = neighbors.get(randIndex).getX();
-        int insectY = neighbors.get(randIndex).getY();
+        int insectRow = neighbors.get(randIndex).getRow();
+        int insectCol = neighbors.get(randIndex).getCol();
 
         // Draw a line from the plant to the insect
-        marker.line(getX(), getY(), insectX, insectY);
+        marker.line(getRow(), getCol(), insectRow, insectCol);
         
         // Kill the insect by removing it from grid; 
-        g.remove(insectX, insectY);
+        g.remove(insectRow, insectCol);
 
     }
 
@@ -84,11 +84,11 @@ public class Plant {
         return range;
     }
 
-    public int getX() {
-        return home.getX();
+    public int getRow() {
+        return home.getRow();
     }
 
-    public int getY() {
-        return home.getY();
+    public int getCol() {
+        return home.getCol();
     }
 }

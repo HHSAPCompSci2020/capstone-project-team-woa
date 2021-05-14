@@ -46,10 +46,32 @@ public class Grid extends GridTemplate {
     /**
      * Removes the object that is at the inputed x and y coordinates
      * 
-     * @param x X coordinate of the object to be removed
-     * @param y Y coordinate of the object to be removed
+     * @param r row of the object to be removed
+     * @param c column of the object to be removed
      */
-    public void remove(int x, int y) {
+    public void remove(int r, int c) {
+        if (grid[r][c] == 'I') {
+            for (int i = 0; i < insects.size(); i++) {
+                if (insects.get(i).getRow() == r && insects.get(i).getCol() == c) {
+                    insects.remove(i);
+                }
+            }
+            grid[r][c] = '.';
+        } else if (grid[r][c] == 'P') {
+            for (int i = 0; i < plants.size(); i++) {
+                if (plants.get(i).getRow() == r && plants.get(i).getCol() == c) {
+                    plants.remove(i);
+                }
+            }
+            grid[r][c] = 'W';
+        } else if (grid[r][c] == 'W') {
+            for (int i = 0; i < walls.size(); i++) {
+                if (walls.get(i).getRow() == r && walls.get(i).getCol() == c) {
+                    walls.remove(i);
+                }
+            }
+            grid[r][c] = '.';
+        }
 
     }
 
@@ -65,18 +87,24 @@ public class Grid extends GridTemplate {
     }
 
     public void act() {
-
+        for (Insect i : insects) {
+            i.act();
+            i.findOptimalPath(i.getRow(), i.getCol(), grid);
+        }
     }
 
     public Insect returnInsect(int row, int col) {
-        //Checks every insect in the grid to see if they are at (row,col)
-        for(int i=0;i<insects.size();i++) {
-            if(insects.get(i).getY()==row&&insects.get(i).getX()==col) {
-                //return this insect if it is the correct one
-                return insects.get(i);
+
+        // Checks every insect in the grid to see if they are at (row,col)
+
+        if (grid[row][col] == 'I') {
+            for (int i = 0; i < insects.size(); i++) {
+                if (insects.get(i).getRow() == row && insects.get(i).getCol() == col) {
+                    // return this insect if it is the correct one
+                    return insects.get(i);
+                }
             }
         }
-        //return null if no such insect exists.
         return null;
     }
 }

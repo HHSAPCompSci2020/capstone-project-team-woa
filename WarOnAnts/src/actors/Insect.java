@@ -35,15 +35,22 @@ public class Insect {
     public ArrayList<Point> findOptimalPath(int r, int c, char[][] grid) {
         ArrayList<Point> result = findNext(r, c, grid);
 
+        optimalPath = findNext(r, c, grid);
         return result;
     }
 
-    public int getX() {
+    public int getRow() {
         return row;
     }
 
-    public int getY() {
+    public int getCol() {
         return col;
+    }
+    
+    public void act() {
+        Point p = optimalPath.get(0);
+        row = p.x;
+        col = p.y;
     }
 
     private ArrayList<Point> findNext(int x, int y, char[][] grid) {

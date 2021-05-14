@@ -9,21 +9,22 @@ package actors;
 
 public class Wall {
 
-    private int xCoor, yCoor;
+    private int row, col;
 
     /**
      * Creates wall and initializes locations for the wall
      * 
      */
-    public Wall() {
-
+    public Wall(int r, int c) {
+        row = r;
+        col = c;
     }
 
-    public int getX() {
-        return xCoor;
+    public int getRow() {
+        return row;
     }
     
-    public int getY() {
-        return yCoor;
+    public int getCol() {
+        return col;
     }
 }
