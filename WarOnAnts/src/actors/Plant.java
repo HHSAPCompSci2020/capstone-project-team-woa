@@ -33,25 +33,26 @@ public class Plant {
     /**
      * Shoots at ants that are in the range of this plant and deals damageDealt
      * damage
+     * 
      * @param marker The PApplet that draws the beam
-     * @param g The grid that houses the ants
+     * @param g      The grid that houses the ants
      */
-    public void shoot(PApplet marker, Grid g) {
+    public void shoot(PApplet marker, ArrayList<Insect> insects) {
 
         // Find neighboring insects
         ArrayList<Insect> neighbors = new ArrayList<Insect>();
         for (int r = getRow() - range; r < getRow() + range + 1; r++) {
             for (int c = getCol() - range; c < getCol() + range + 1; c++) {
                 if (r != getRow() && c != getCol())
-                    neighbors.add(g.returnInsect(r, c));
+                    neighbors.add(returnInsect(r, c, insects));
 
             }
         }
         // Calculate the index of a random insect and calculate its location
         int randIndex = (int) Math.random() * neighbors.size();
 
-        //makes sure the insect does really exist
-        while(neighbors.get(randIndex)==null) {
+        // makes sure the insect does really exist
+        while (neighbors.get(randIndex) == null) {
             randIndex = (int) Math.random() * neighbors.size();
 
         }
@@ -59,12 +60,11 @@ public class Plant {
         int insectCol = neighbors.get(randIndex).getCol();
 
         // Draw a line from the plant to the insect
-        
+
         marker.line(getRow(), getCol(), insectRow, insectCol);
-        
+
         // Does damage to the insect
         neighbors.get(randIndex).takeDamage(damageDealt);
-        
 
     }
 
@@ -72,26 +72,29 @@ public class Plant {
      * The plant continues to act, which includes shooting insects that get too
      * close
      */
-    public void act(PApplet m, Grid g) {
-       if(hasNeighbor(g)) {
-           shoot(m,g);
-       }
+    public void act(PApplet m, ArrayList<Insect> insects) {
+        if (hasNeighbor(insects)) {
+            shoot(m, insects);
+        }
     }
+
     /**
      * Checks if there is at least one insect in the plant's range
+     * 
      * @param g The grid that houses all the insects
-     * @return Returns true if there is at least one insect in range, false otherwise
+     * @return Returns true if there is at least one insect in range, false
+     *         otherwise
      */
-    private boolean hasNeighbor(Grid g) {
+    private boolean hasNeighbor(ArrayList<Insect> insects) {
         ArrayList<Insect> neighbors = new ArrayList<Insect>();
         for (int r = getRow() - range; r < getRow() + range + 1; r++) {
             for (int c = getCol() - range; c < getCol() + range + 1; c++) {
                 if (r != getRow() && c != getCol())
-                    neighbors.add(g.returnInsect(r, c));
+                    neighbors.add(returnInsect(r, c, insects));
 
             }
         }
-        if(neighbors.size()>0) {
+        if (neighbors.size() > 0) {
             return true;
         }
         return false;
@@ -102,30 +105,55 @@ public class Plant {
      */
     public void levelUp() {
         level++;
-        if(level<4) {
-            range++;}
-        
+        if (level < 4) {
+            range++;
+        }
 
     }
+
     /**
      * Returns the range of this plant
+     * 
      * @return the range of this plant
      */
     public int getRange() {
         return range;
     }
+
     /**
      * Returns the row of this plant in the grid
+     * 
      * @return the row of this plant
      */
     public int getRow() {
         return home.getRow();
     }
+
     /**
      * Returns the column of this plant in the grid
+     * 
      * @return the column of this plant
      */
     public int getCol() {
         return home.getCol();
+    }
+
+    /**
+     * Returns the insect given its row and column
+     * 
+     * @return an insect at grid[row][col] if it exists, else it returns null
+     */
+    public Insect returnInsect(int row, int col, ArrayList<Insect> insects) {
+
+        // Checks every insect in the grid to see if they are at (row,col)
+
+        for (int i = 0; i < insects.size(); i++) {
+            if (insects.get(i).getRow() == row && insects.get(i).getCol() == col) {
+                // return this insect if it is the correct one
+                return insects.get(i);
+            }
+        }
+
+        return null;
     }
 }
