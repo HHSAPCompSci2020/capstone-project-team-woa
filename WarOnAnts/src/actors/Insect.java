@@ -60,6 +60,10 @@ public class Insect {
         return col;
     }
     
+    public int getPathLen() {
+        return optimalPath.size();
+    }
+    
     /**
      * Makes the insect take a step forward if it isn't blocked from the fruit. 
      * Does nothing if it is blocked from the fruit. 

@@ -2,6 +2,7 @@ package grid;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import actors.Fruit;
 import actors.Insect;
@@ -100,6 +101,15 @@ public class Grid extends GridTemplate {
     public void add(int r, int c, Object type) {
 
     }
+    
+    class SortByLength implements Comparator<Insect>
+    {
+        public int compare(Insect a, Insect b)
+        {
+            return a.getPathLen() - b.getPathLen();
+        }
+    }
+    
     /**
      * Starts and continues to run the program
      */
@@ -107,6 +117,10 @@ public class Grid extends GridTemplate {
         if (insects != null) {
             for (Insect i : insects) {
                 i.findOptimalPath(i.getRow(), i.getCol(), grid);
+            }
+ 
+            insects.sort(new SortByLength());
+            for (Insect i : insects) {
                 i.act();
             }
         }
