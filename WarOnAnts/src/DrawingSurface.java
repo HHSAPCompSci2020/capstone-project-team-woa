@@ -5,8 +5,6 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-
-
 import actors.*;
 import grid.Grid;
 import template.GridTemplate;
@@ -30,30 +28,39 @@ public class DrawingSurface extends PApplet {
         textAlign(LEFT);
         textSize(12);
 
-         
-        
         if (grid != null) {
-            
-            grid.draw(this, 0, 0,height*1.5f, height*1.5f);
+
+            grid.draw(this, 0, 0, height, height);
+            if (grid != null) {
+                grid.draw(this, 0, 0, height, height);
+            }
         }
 
     }
 
     public void mousePressed() {
         Point click = new Point(mouseX, mouseY);
-        float dimension = height*1.5f;
+        float dimension = height;
         Point cellCoord = grid.clickToIndex(click, 0, 0, dimension, dimension);
+
+        // toggle between wall and path
         if (mouseButton == LEFT) {
             if (cellCoord != null) {
                 grid.toggleWall(cellCoord.x, cellCoord.y);
             }
         }
+
+        // toggle between plant and wall
+        if (mouseButton == 3) {
+            if (cellCoord != null) {
+                grid.togglePlant(cellCoord.x, cellCoord.y);
+            }
+        }
+
+        // act
         if (mouseButton == RIGHT) {
-            if (grid.get(cellCoord.x, cellCoord.y) instanceof Wall) {
-                grid.add(cellCoord.x, cellCoord.y, new Plant(new Wall(cellCoord.x, cellCoord.y)));
-            } else {
+            if (cellCoord != null) {
                 grid.act(this);
-               
 
             }
         }

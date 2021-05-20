@@ -56,7 +56,7 @@ public class Plant {
 
         {
             // Calculate the index of a random insect and calculate its location
-            int randIndex = (int)( Math.random() * neighbors.size());
+            int randIndex = (int) (Math.random() * neighbors.size());
 
             // makes sure the insect does really exist
             while (neighbors.get(randIndex) == null) {
@@ -69,7 +69,6 @@ public class Plant {
 
             marker.line(getRow(), getCol(), insectRow, insectCol);
 
-           
             // Does damage to the insect
             neighbors.get(randIndex).takeDamage(damageDealt);
 

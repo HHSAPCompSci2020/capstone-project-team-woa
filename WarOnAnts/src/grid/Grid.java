@@ -113,6 +113,27 @@ public class Grid extends GridTemplate {
     }
 
     /**
+     * Toggles between a wall and a plant space.
+     * 
+     * @param r row of the location to be toggled
+     * @param c column of the location to be toggled
+     */
+    public void togglePlant(int r, int c) {
+        if (grid[r][c] == 'P') {
+            for (int i = 0; i < plants.size(); i++) {
+                if (plants.get(i).getRow() == r && plants.get(i).getCol() == c) {
+                    plants.remove(i);
+                }
+            }
+            grid[r][c] = '#';
+        } else if (grid[r][c] == '#') {
+            grid[r][c] = 'P';
+            walls.add(new Wall(r, c));
+        }
+
+    }
+
+    /**
      * Adds an object at the inputed x and y coordinates
      * 
      * @param r    Row location of the object to be added
@@ -134,19 +155,24 @@ public class Grid extends GridTemplate {
     }
 
     public Object get(int r, int c) {
-        for (int i = 0; i < insects.size(); i++) {
-            if (insects.get(i).getCol() == c && insects.get(i).getRow() == r) {
-                return insects.get(i);
+
+        if (grid[r][c] == 'I') {
+            for (int i = 0; i < insects.size(); i++) {
+                if (insects.get(i).getCol() == c && insects.get(i).getRow() == r) {
+                    return insects.get(i);
+                }
             }
-        }
-        for (int p = 0; p < plants.size(); p++) {
-            if (plants.get(p).getCol() == c && plants.get(p).getRow() == r) {
-                return plants.get(p);
+        } else if (grid[r][c] == 'P') {
+            for (int p = 0; p < plants.size(); p++) {
+                if (plants.get(p).getCol() == c && plants.get(p).getRow() == r) {
+                    return plants.get(p);
+                }
             }
-        }
-        for (int w = 0; w < walls.size(); w++) {
-            if (walls.get(w).getCol() == c && walls.get(w).getRow() == r) {
-                return walls.get(w);
+        } else if (grid[r][c] == '#') {
+            for (int w = 0; w < walls.size(); w++) {
+                if (walls.get(w).getCol() == c && walls.get(w).getRow() == r) {
+                    return walls.get(w);
+                }
             }
         }
 
@@ -180,14 +206,20 @@ public class Grid extends GridTemplate {
             insects.sort(new SortByLength());
             for (Insect i : insects) {
                 i.act(fruit);
-                if (i.getHealth() <= 0)
+                if (i.getHealth() <= 0) {
                     dead.add(i);
+                }
             }
 
             // Remove dead insects whose health is non-positive.
             insects.removeAll(dead);
         }
 
+        if (plants != null) {
+            for (Plant p : plants) {
+                p.act(marker, insects);
+            }
+        }
         if (fruit.getHealth() <= 0) {
             grid[fruit.getRow()][fruit.getCol()] = '.';
             System.out.println("Game Over");
