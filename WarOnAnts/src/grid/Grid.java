@@ -79,14 +79,35 @@ public class Grid extends GridTemplate {
                     plants.remove(i);
                 }
             }
-            grid[r][c] = 'W';
-        } else if (grid[r][c] == 'W') {
+            grid[r][c] = '#';
+        } else if (grid[r][c] == '#') {
             for (int i = 0; i < walls.size(); i++) {
                 if (walls.get(i).getRow() == r && walls.get(i).getCol() == c) {
                     walls.remove(i);
                 }
             }
             grid[r][c] = '.';
+        }
+
+    }
+    
+    /**
+     * Toggles between a wall and a open space.
+     * 
+     * @param r row of the location to be toggled
+     * @param c column of the location to be toggled
+     */
+    public void toggleWall(int r, int c) {
+        if (grid[r][c] == '#') {
+            for (int i = 0; i < walls.size(); i++) {
+                if (walls.get(i).getRow() == r && walls.get(i).getCol() == c) {
+                    walls.remove(i);
+                }
+            }
+            grid[r][c] = '.';
+        } else if (grid[r][c] == '.') {
+            grid[r][c] = '#';
+            walls.add(new Wall(r,c));
         }
 
     }
@@ -99,7 +120,17 @@ public class Grid extends GridTemplate {
      * @param type the object that is to be added, can be insect, plant or wall
      */
     public void add(int r, int c, Object type) {
-
+        if (type instanceof Wall) {
+            walls.add((Wall)type);
+            grid[r][c] = '#';
+            System.out.println("hi");
+        } else if (type instanceof Insect) {
+            insects.add((Insect)type);
+            grid[r][c] = 'I';
+        } else if (type instanceof Plant) {
+            plants.add((Plant)type);
+            grid[r][c] = 'P';
+        }
     }
     
     class SortByLength implements Comparator<Insect>

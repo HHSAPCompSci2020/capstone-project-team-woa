@@ -61,6 +61,9 @@ public class Insect {
     }
     
     public int getPathLen() {
+        if (optimalPath == null) {
+            return Integer.MAX_VALUE;
+        }
         return optimalPath.size();
     }
     
@@ -74,6 +77,8 @@ public class Insect {
             Point p = optimalPath.get(1);
             row = p.x;
             col = p.y;
+            grid[row][col] = 'I';
+        } else {
             grid[row][col] = 'I';
         }
     }

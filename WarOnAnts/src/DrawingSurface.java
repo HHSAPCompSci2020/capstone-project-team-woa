@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import actors.Wall;
 import grid.Grid;
 import template.GridTemplate;
 import processing.core.PApplet;
@@ -36,7 +37,7 @@ public class DrawingSurface extends PApplet {
             float dimension = height;
             Point cellCoord = grid.clickToIndex(click, 0, 0, dimension, dimension);
             if (cellCoord != null) {
-                // function
+                grid.toggleWall(cellCoord.x, cellCoord.y);
             }
         }
         if (mouseButton == RIGHT) {
