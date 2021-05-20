@@ -49,7 +49,7 @@ public class Plant {
                     neighbors.add(returnInsect(r, c, insects));
                 }
 
-            }
+            } 
         }
 
         if (neighbors.size() != 0)
@@ -74,8 +74,8 @@ public class Plant {
             System.out.println("HI");
 
         }
-
-    }
+ 
+    } 
 
     /**
      * The plant continues to act, which includes shooting insects that get too

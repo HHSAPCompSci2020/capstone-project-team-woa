@@ -11,15 +11,23 @@ import template.GridTemplate;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * Creates the game that has a grid and in the grid there are plants, ants, walls and a fruit .
+ * The ants move toward the fruit, the plants attack the ants and the wall acts like a blockade
+ * 
+ * @author William Hyun and co-author Dhruv Masurekar
+ */
 public class DrawingSurface extends PApplet {
 
     // When you progress to a new prompt, modify this field.
     private Grid grid;
+    private int materials;
 
     public DrawingSurface() {
 
-        grid = new Grid("maps/test3.txt");
+        grid = new Grid("maps/test4.txt");
         System.out.println(grid);
+        materials = 20;
     }
 
     public void draw() {
@@ -41,8 +49,9 @@ public class DrawingSurface extends PApplet {
 
         // toggle between wall and path
         if (mouseButton == LEFT) {
-            if (cellCoord != null) {
+            if (cellCoord != null && materials>0) {
                 grid.toggleWall(cellCoord.x, cellCoord.y);
+                materials--;
             }
         }
 
