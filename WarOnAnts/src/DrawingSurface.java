@@ -1,13 +1,19 @@
 
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
+import org.omg.CORBA.portable.InputStream;
+
 import actors.*;
 import grid.Grid;
 import template.GridTemplate;
 import processing.core.PApplet;
+import processing.awt.*;
 
 public class DrawingSurface extends PApplet {
 
@@ -25,8 +31,10 @@ public class DrawingSurface extends PApplet {
         textAlign(LEFT);
         textSize(12);
 
+        
+        
         if (grid != null) {
-            grid.draw(this, 0, 0, height, height);
+            grid.draw(this, 0, 0,height*1.5f, height*1.5f);
         }
 
     }
