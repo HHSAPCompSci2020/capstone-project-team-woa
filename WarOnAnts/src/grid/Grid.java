@@ -8,6 +8,7 @@ import actors.Fruit;
 import actors.Insect;
 import actors.Plant;
 import actors.Wall;
+import processing.core.PApplet;
 import template.GridTemplate;
 
 /**
@@ -20,43 +21,42 @@ public class Grid extends GridTemplate {
 
     private char[][] grid2 = new char[20][20];
 
-
     private ArrayList<Insect> insects = new ArrayList<Insect>();
-    private ArrayList<Plant> plants= new ArrayList<Plant>();
-    private ArrayList<Wall> walls= new ArrayList<Wall>();
+    private ArrayList<Plant> plants = new ArrayList<Plant>();
+    private ArrayList<Wall> walls = new ArrayList<Wall>();
     private Fruit fruit;
 
-    
     /**
      * Creates a Grid object and copies the information from the file given.
+     * 
      * @param filename the name of the map file being read
      */
     public Grid(String filename) {
         super(20, 20, filename);
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                grid2[i][j] = grid[i][j];   
+                grid2[i][j] = grid[i][j];
             }
         }
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == 'I') {
-                    Insect ins = new Insect(i,j, grid);
+                    Insect ins = new Insect(i, j, grid);
                     insects.add(ins);
                 } else if (grid[i][j] == 'P') {
-                    Wall w = new Wall(i,j);
+                    Wall w = new Wall(i, j);
                     Plant p = new Plant(w);
                     plants.add(p);
                 } else if (grid[i][j] == '#') {
-                    Wall w = new Wall(i,j);
+                    Wall w = new Wall(i, j);
                     walls.add(w);
-                } else if(grid[i][j] == 'X') {
-                    fruit = new Fruit(100,i,j);
-                } 
-                
+                } else if (grid[i][j] == 'X') {
+                    fruit = new Fruit(100, i, j);
+                }
+
             }
         }
-        
+
     }
 
     /**
@@ -90,7 +90,7 @@ public class Grid extends GridTemplate {
         }
 
     }
-    
+
     /**
      * Toggles between a wall and a open space.
      * 
@@ -107,7 +107,7 @@ public class Grid extends GridTemplate {
             grid[r][c] = '.';
         } else if (grid[r][c] == '.') {
             grid[r][c] = '#';
-            walls.add(new Wall(r,c));
+            walls.add(new Wall(r, c));
         }
 
     }
@@ -121,60 +121,83 @@ public class Grid extends GridTemplate {
      */
     public void add(int r, int c, Object type) {
         if (type instanceof Wall) {
-            walls.add((Wall)type);
+            walls.add((Wall) type);
             grid[r][c] = '#';
             System.out.println("hi");
         } else if (type instanceof Insect) {
-            insects.add((Insect)type);
+            insects.add((Insect) type);
             grid[r][c] = 'I';
         } else if (type instanceof Plant) {
-            plants.add((Plant)type);
+            plants.add((Plant) type);
             grid[r][c] = 'P';
         }
     }
-    
-    class SortByLength implements Comparator<Insect>
-    {
-        public int compare(Insect a, Insect b)
-        {
+
+    public Object get(int r, int c) {
+        for(int i = 0 ;i < insects.size();i++ ) {
+            if(insects.get(i).getCol() == c && insects.get(i).getRow() == r) {
+                return insects.get(i);
+            }
+        }
+        for(int p = 0 ;p < plants.size();p++ ) {
+            if(plants.get(p).getCol() == c && plants.get(p).getRow() == r) {
+                return plants.get(p);
+            }
+        }
+        for(int w = 0 ;w < walls.size();w++ ) {
+            if(walls.get(w).getCol() == c && walls.get(w).getRow() == r) {
+                return walls.get(w);
+            }
+        }
+        
+        return null;
+    }
+
+    class SortByLength implements Comparator<Insect> {
+        public int compare(Insect a, Insect b) {
             return a.getPathLen() - b.getPathLen();
         }
     }
-    
+
     /**
      * Starts and continues to run the program
      */
-    public void act() {
-        
+    public void act(PApplet marker) {
+
         if (insects != null) {
             for (Insect i : insects) {
                 i.findOptimalPath(i.getRow(), i.getCol(), grid);
             }
-            
+
             ArrayList<Insect> dead = new ArrayList<>();
-            
+
             insects.sort(new SortByLength());
             for (Insect i : insects) {
                 i.act(fruit);
-                if (i.getHealth() <= 0) 
+                if (i.getHealth() <= 0)
                     dead.add(i);
             }
-            
+
             // Remove dead insects whose health is non-positive.
             insects.removeAll(dead);
         }
-        
+
+        if(plants != null) {
+            for(Plant p : plants) {
+                p.act(marker, insects);
+            }
+        }
         if (fruit.getHealth() <= 0) {
             grid[fruit.getRow()][fruit.getCol()] = '.';
             System.out.println("Game Over");
         }
-        
+
         // add more insects
 //        if (grid[1][1] == '.') {
 //            insects.add(new Insect(1,1, grid));
 //            grid[1][1] = 'I';
 //        }
-        
+
     }
-    
+
 }

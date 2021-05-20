@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import actors.Wall;
+import actors.*;
 import grid.Grid;
 import template.GridTemplate;
 import processing.core.PApplet;
@@ -32,16 +32,20 @@ public class DrawingSurface extends PApplet {
     }
 
     public void mousePressed() {
+        Point click = new Point(mouseX, mouseY);
+        float dimension = height;
+        Point cellCoord = grid.clickToIndex(click, 0, 0, dimension, dimension);
         if (mouseButton == LEFT) {
-            Point click = new Point(mouseX, mouseY);
-            float dimension = height;
-            Point cellCoord = grid.clickToIndex(click, 0, 0, dimension, dimension);
             if (cellCoord != null) {
                 grid.toggleWall(cellCoord.x, cellCoord.y);
             }
         }
         if (mouseButton == RIGHT) {
-            grid.act();
+            if (grid.get(cellCoord.x, cellCoord.y) instanceof Wall) {
+                grid.add(cellCoord.x, cellCoord.y, new Plant(new Wall(cellCoord.x, cellCoord.y)));
+            } else {
+                grid.act(this);
+            }
         }
     }
 
