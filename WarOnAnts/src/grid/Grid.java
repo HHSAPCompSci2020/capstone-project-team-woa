@@ -134,22 +134,22 @@ public class Grid extends GridTemplate {
     }
 
     public Object get(int r, int c) {
-        for(int i = 0 ;i < insects.size();i++ ) {
-            if(insects.get(i).getCol() == c && insects.get(i).getRow() == r) {
+        for (int i = 0; i < insects.size(); i++) {
+            if (insects.get(i).getCol() == c && insects.get(i).getRow() == r) {
                 return insects.get(i);
             }
         }
-        for(int p = 0 ;p < plants.size();p++ ) {
-            if(plants.get(p).getCol() == c && plants.get(p).getRow() == r) {
+        for (int p = 0; p < plants.size(); p++) {
+            if (plants.get(p).getCol() == c && plants.get(p).getRow() == r) {
                 return plants.get(p);
             }
         }
-        for(int w = 0 ;w < walls.size();w++ ) {
-            if(walls.get(w).getCol() == c && walls.get(w).getRow() == r) {
+        for (int w = 0; w < walls.size(); w++) {
+            if (walls.get(w).getCol() == c && walls.get(w).getRow() == r) {
                 return walls.get(w);
             }
         }
-        
+
         return null;
     }
 
@@ -164,6 +164,12 @@ public class Grid extends GridTemplate {
      */
     public void act(PApplet marker) {
 
+        if (plants != null) {
+
+            for (Plant p : plants) {
+                p.act(marker, insects);
+            }
+        }
         if (insects != null) {
             for (Insect i : insects) {
                 i.findOptimalPath(i.getRow(), i.getCol(), grid);
@@ -182,11 +188,6 @@ public class Grid extends GridTemplate {
             insects.removeAll(dead);
         }
 
-        if(plants != null) {
-            for(Plant p : plants) {
-                p.act(marker, insects);
-            }
-        }
         if (fruit.getHealth() <= 0) {
             grid[fruit.getRow()][fruit.getCol()] = '.';
             System.out.println("Game Over");

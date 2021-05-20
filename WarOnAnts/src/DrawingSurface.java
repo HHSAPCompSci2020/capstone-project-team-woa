@@ -5,15 +5,13 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 
-import org.omg.CORBA.portable.InputStream;
 
 import actors.*;
 import grid.Grid;
 import template.GridTemplate;
 import processing.core.PApplet;
-import processing.awt.*;
+import processing.core.PImage;
 
 public class DrawingSurface extends PApplet {
 
@@ -21,6 +19,7 @@ public class DrawingSurface extends PApplet {
     private Grid grid;
 
     public DrawingSurface() {
+
         grid = new Grid("maps/test4.txt");
         System.out.println(grid);
     }
@@ -31,9 +30,10 @@ public class DrawingSurface extends PApplet {
         textAlign(LEFT);
         textSize(12);
 
-        
+         
         
         if (grid != null) {
+            
             grid.draw(this, 0, 0,height*1.5f, height*1.5f);
         }
 
@@ -41,7 +41,7 @@ public class DrawingSurface extends PApplet {
 
     public void mousePressed() {
         Point click = new Point(mouseX, mouseY);
-        float dimension = height;
+        float dimension = height*1.5f;
         Point cellCoord = grid.clickToIndex(click, 0, 0, dimension, dimension);
         if (mouseButton == LEFT) {
             if (cellCoord != null) {
@@ -53,6 +53,8 @@ public class DrawingSurface extends PApplet {
                 grid.add(cellCoord.x, cellCoord.y, new Plant(new Wall(cellCoord.x, cellCoord.y)));
             } else {
                 grid.act(this);
+               
+
             }
         }
     }
