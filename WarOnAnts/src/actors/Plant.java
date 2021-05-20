@@ -71,6 +71,7 @@ public class Plant {
 
             // Does damage to the insect
             neighbors.get(randIndex).takeDamage(damageDealt);
+            System.out.println("HI");
 
         }
 

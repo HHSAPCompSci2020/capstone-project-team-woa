@@ -128,7 +128,8 @@ public class Grid extends GridTemplate {
             grid[r][c] = '#';
         } else if (grid[r][c] == '#') {
             grid[r][c] = 'P';
-            walls.add(new Wall(r, c));
+            Wall w = new Wall(r,c);
+            plants.add(new Plant(w));
         }
 
     }
@@ -154,6 +155,13 @@ public class Grid extends GridTemplate {
         }
     }
 
+    /**
+     * Returns the object at r, c on the grid. 
+     * 
+     * @param r Row
+     * @param c Column
+     * @return the object and r, c
+     */
     public Object get(int r, int c) {
 
         if (grid[r][c] == 'I') {

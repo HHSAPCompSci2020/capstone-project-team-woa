@@ -18,7 +18,7 @@ public class DrawingSurface extends PApplet {
 
     public DrawingSurface() {
 
-        grid = new Grid("maps/test4.txt");
+        grid = new Grid("maps/test3.txt");
         System.out.println(grid);
     }
 
