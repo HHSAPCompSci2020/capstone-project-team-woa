@@ -41,15 +41,24 @@ public class DrawingSurface extends PApplet {
         Point click = new Point(mouseX, mouseY);
         float dimension = height;
         Point cellCoord = grid.clickToIndex(click, 0, 0, dimension, dimension);
+        
+        // toggle between wall and path
         if (mouseButton == LEFT) {
             if (cellCoord != null) {
                 grid.toggleWall(cellCoord.x, cellCoord.y);
             }
         }
+        
+        // toggle between plant and wall
         if (mouseButton == RIGHT) {
-            if (grid.get(cellCoord.x, cellCoord.y) instanceof Wall) {
-                grid.add(cellCoord.x, cellCoord.y, new Plant(new Wall(cellCoord.x, cellCoord.y)));
-            } else {
+            if (cellCoord != null) {
+                grid.togglePlant(cellCoord.x, cellCoord.y);
+            } 
+        }
+        
+        // act
+        if (mouseButton == 3) {
+            if (cellCoord != null) {
                 grid.act(this);
             }
         }
