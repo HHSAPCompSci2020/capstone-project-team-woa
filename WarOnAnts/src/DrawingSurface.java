@@ -30,9 +30,8 @@ public class DrawingSurface extends PApplet {
 
         if (grid != null) {
 
-            grid.draw(this, 0, 0, height, height);
             if (grid != null) {
-                grid.draw(this, 0, 0, height, height);
+                grid.draw(this, 0, 0, height*1.5f, height*1.5f);
             }
         }
 
@@ -40,7 +39,7 @@ public class DrawingSurface extends PApplet {
 
     public void mousePressed() {
         Point click = new Point(mouseX, mouseY);
-        float dimension = height;
+        float dimension = height*1.5f;
         Point cellCoord = grid.clickToIndex(click, 0, 0, dimension, dimension);
 
         // toggle between wall and path
