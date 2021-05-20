@@ -27,7 +27,7 @@ public class Insect {
         this.row = r;
         this.col = c;
         this.grid = grid;
-        health = 10;
+        health = 50;
     }
 
     /**
@@ -52,6 +52,10 @@ public class Insect {
         return row;
     }
     
+    public int getHealth() {
+        return health;
+    }
+    
     /**
      * 
      * @return returns the column of the insect
@@ -71,13 +75,19 @@ public class Insect {
      * Makes the insect take a step forward if it isn't blocked from the fruit. 
      * Does nothing if it is blocked from the fruit. 
      */
-    public void act() {
+    public void act(Fruit f) {
         if (optimalPath != null) {
-            System.out.println(optimalPath.toString());
-            Point p = optimalPath.get(1);
-            row = p.x;
-            col = p.y;
-            grid[row][col] = 'I';
+            if (optimalPath.size() > 1) {
+                System.out.println(optimalPath.toString());
+                Point p = optimalPath.get(1);
+                row = p.x;
+                col = p.y;
+                grid[row][col] = 'I';                
+            } else {
+                System.out.println("Eat " + health);
+                f.takeDamage(health);
+                health = 0;
+            }
         } else {
             grid[row][col] = 'I';
         }
@@ -89,6 +99,13 @@ public class Insect {
      */
     public void takeDamage(int dmg) {
         health -= dmg;
+    }
+    
+    public boolean isTouching(int r, int c) {
+        return (r - 1 == row && c == col) ||
+                (r + 1 == row && c == col) ||
+                (r == row && c == col - 1) ||
+                (r == row && c == col + 1);
     }
 
     private ArrayList<Point> findNext(int x, int y, char[][] grid) {

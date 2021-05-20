@@ -145,16 +145,36 @@ public class Grid extends GridTemplate {
      * Starts and continues to run the program
      */
     public void act() {
+        
         if (insects != null) {
             for (Insect i : insects) {
                 i.findOptimalPath(i.getRow(), i.getCol(), grid);
             }
- 
+            
+            ArrayList<Insect> dead = new ArrayList<>();
+            
             insects.sort(new SortByLength());
             for (Insect i : insects) {
-                i.act();
+                i.act(fruit);
+                if (i.getHealth() <= 0) 
+                    dead.add(i);
             }
+            
+            // Remove dead insects whose health is non-positive.
+            insects.removeAll(dead);
         }
+        
+        if (fruit.getHealth() <= 0) {
+            grid[fruit.getRow()][fruit.getCol()] = '.';
+            System.out.println("Game Over");
+        }
+        
+        // add more insects
+//        if (grid[1][1] == '.') {
+//            insects.add(new Insect(1,1, grid));
+//            grid[1][1] = 'I';
+//        }
+        
     }
     
 }
