@@ -212,6 +212,7 @@ public class Grid extends GridTemplate {
             }
         }
         if (insects != null) {
+            spawnInsect();
             for (Insect i : insects) {
                 i.findOptimalPath(i.getRow(), i.getCol(), grid);
             }
@@ -246,6 +247,27 @@ public class Grid extends GridTemplate {
 //            grid[1][1] = 'I';
 //        }
 
+    }
+    
+    public void spawnInsect() {
+        System.out.println("hi");
+        if(!containsAnts(grid2, grid2.length-2)) {
+            int randCol =(int)(grid2[0].length * Math.random());
+            while(grid2[grid2.length-2][randCol] == '#') {
+                randCol =(int)(grid2[0].length * Math.random());
+            }
+            grid2[grid2.length-1][randCol] = 'I';
+            insects.add(new Insect(grid2.length-2,randCol, grid));
+        }
+    }
+
+    private boolean containsAnts(char[][] grid, int i) {
+        for(int c = 0; c < grid[i].length; c++) {
+            if(grid[i][c] == 'I') {
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<Insect> getInsects() {
