@@ -250,20 +250,23 @@ public class Grid extends GridTemplate {
     }
     
     public void spawnInsect() {
-        System.out.println("hi");
-        if(!containsAnts(grid2, grid2.length-2)) {
-            int randCol =(int)(grid2[0].length * Math.random());
-            while(grid2[grid2.length-2][randCol] == '#') {
-                randCol =(int)(grid2[0].length * Math.random());
+        
+
+            int randCol =(int)(getTrueWidth() * Math.random());
+           
+            while(grid2[getTrueHeight()-2][randCol] != '.') {
+                randCol =(int)(getTrueWidth() * Math.random());
             }
-            grid2[grid2.length-1][randCol] = 'I';
-            insects.add(new Insect(grid2.length-2,randCol, grid));
-        }
+            
+            grid2[getTrueHeight()-2][randCol] = 'I';
+            insects.add(new Insect(getTrueHeight()-2,randCol, grid));
+        
     }
 
-    private boolean containsAnts(char[][] grid, int i) {
-        for(int c = 0; c < grid[i].length; c++) {
-            if(grid[i][c] == 'I') {
+    private boolean containsAnts(char[][] grid, int row) {
+        for(int c = 0; c < getTrueWidth(); c++) {
+            if(grid[row][c] == 'I') {
+                System.out.println(row+" "+c);
                 return true;
             }
         }
@@ -280,6 +283,29 @@ public class Grid extends GridTemplate {
 
     public ArrayList<Wall> getWalls() {
         return walls;
+    }
+    
+    public int getTrueWidth() {
+        int count = 0;
+        for(int c = 0; c < grid2[0].length; c++) {
+            if(grid2[0][c] == 0) {
+                break;
+            }
+            count++;
+        }
+        
+        return count;
+    }
+    public int getTrueHeight() {
+        int count = 0;
+        for(int r = 0; r < grid2.length; r++) {
+            if(grid2[r][0] == 0) {
+                break;
+            }
+            count++;
+        }
+        
+        return count;
     }
 
 }
