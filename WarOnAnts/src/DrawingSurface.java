@@ -31,10 +31,8 @@ public class DrawingSurface extends PApplet {
         textAlign(LEFT);
         textSize(12);
 
-        
-        
         if (grid != null) {
-            grid.draw(this, 0, 0,height*1.5f, height*1.5f);
+            grid.draw(this, 0, 0, height, height);
         }
 
     }
