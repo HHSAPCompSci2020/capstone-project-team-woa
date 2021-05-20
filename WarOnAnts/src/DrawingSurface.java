@@ -12,8 +12,9 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
- * Creates the game that has a grid and in the grid there are plants, ants, walls and a fruit .
- * The ants move toward the fruit, the plants attack the ants and the wall acts like a blockade
+ * Creates the game that has a grid and in the grid there are plants, ants,
+ * walls and a fruit . The ants move toward the fruit, the plants attack the
+ * ants and the wall acts like a blockade
  * 
  * @author William Hyun and co-author Dhruv Masurekar
  */
@@ -21,13 +22,14 @@ public class DrawingSurface extends PApplet {
 
     // When you progress to a new prompt, modify this field.
     private Grid grid;
-    private int materials;
+    private int materials, coins;
 
     public DrawingSurface() {
 
         grid = new Grid("maps/test4.txt");
         System.out.println(grid);
-        materials = 20;
+        materials = 5;
+        coins = 15;
     }
 
     public void draw() {
@@ -49,16 +51,43 @@ public class DrawingSurface extends PApplet {
 
         // toggle between wall and path
         if (mouseButton == LEFT) {
-            if (cellCoord != null && materials>0) {
-                grid.toggleWall(cellCoord.x, cellCoord.y);
-                materials--;
+            if (cellCoord != null && materials >= 0) {
+                if (materials != 0) {
+                    if (grid.toggleWall(cellCoord.x, cellCoord.y)) {
+                        materials--;
+
+                    } else {
+                        materials++;
+                    }
+                } else {
+                    if (!grid.toggleWall(cellCoord.x, cellCoord.y)) {
+                        materials++;
+                    }
+                    else {
+                        grid.toggleWall(cellCoord.x, cellCoord.y);
+                    }
+                }
             }
         }
 
         // toggle between plant and wall
         if (mouseButton == 3) {
-            if (cellCoord != null) {
-                grid.togglePlant(cellCoord.x, cellCoord.y);
+            if (cellCoord != null && coins >= 0) {
+                if (coins != 0) {
+                    if (grid.togglePlant(cellCoord.x, cellCoord.y)) {
+                        coins--;
+
+                    } else {
+                        coins--;
+                    }
+                } else {
+                    if (!grid.togglePlant(cellCoord.x, cellCoord.y)) {
+                        materials++;
+                    }
+                    else {
+                        grid.togglePlant(cellCoord.x, cellCoord.y);
+                    }
+                }
             }
         }
 

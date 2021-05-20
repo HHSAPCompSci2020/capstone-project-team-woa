@@ -97,7 +97,7 @@ public class Grid extends GridTemplate {
      * @param r row of the location to be toggled
      * @param c column of the location to be toggled
      */
-    public void toggleWall(int r, int c) {
+    public boolean toggleWall(int r, int c) {
         if (grid[r][c] == '#') {
             for (int i = 0; i < walls.size(); i++) {
                 if (walls.get(i).getRow() == r && walls.get(i).getCol() == c) {
@@ -108,7 +108,10 @@ public class Grid extends GridTemplate {
         } else if (grid[r][c] == '.') {
             grid[r][c] = '#';
             walls.add(new Wall(r, c));
+            return true;
+
         }
+        return false;
 
     }
 
@@ -118,7 +121,7 @@ public class Grid extends GridTemplate {
      * @param r row of the location to be toggled
      * @param c column of the location to be toggled
      */
-    public void togglePlant(int r, int c) {
+    public boolean togglePlant(int r, int c) {
         if (grid[r][c] == 'P') {
             for (int i = 0; i < plants.size(); i++) {
                 if (plants.get(i).getRow() == r && plants.get(i).getCol() == c) {
@@ -128,9 +131,13 @@ public class Grid extends GridTemplate {
             grid[r][c] = '#';
         } else if (grid[r][c] == '#') {
             grid[r][c] = 'P';
-            Wall w = new Wall(r,c);
+            Wall w = new Wall(r, c);
             plants.add(new Plant(w));
+            return true;
+
         }
+        return false;
+
 
     }
 
@@ -156,7 +163,7 @@ public class Grid extends GridTemplate {
     }
 
     /**
-     * Returns the object at r, c on the grid. 
+     * Returns the object at r, c on the grid.
      * 
      * @param r Row
      * @param c Column
@@ -239,6 +246,18 @@ public class Grid extends GridTemplate {
 //            grid[1][1] = 'I';
 //        }
 
+    }
+
+    public ArrayList<Insect> getInsects() {
+        return insects;
+    }
+
+    public ArrayList<Plant> getPlants() {
+        return plants;
+    }
+
+    public ArrayList<Wall> getWalls() {
+        return walls;
     }
 
 }
