@@ -35,15 +35,15 @@ public class Fruit {
             die();
         }
     }
-    
+
     public int getRow() {
         return row;
     }
-    
+
     public int getCol() {
         return col;
     }
-    
+
     public int getHealth() {
         return health;
     }
