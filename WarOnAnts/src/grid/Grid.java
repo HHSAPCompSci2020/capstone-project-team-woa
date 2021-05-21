@@ -25,6 +25,8 @@ public class Grid extends GridTemplate {
     private ArrayList<Plant> plants = new ArrayList<Plant>();
     private ArrayList<Wall> walls = new ArrayList<Wall>();
     private Fruit fruit;
+    private int antHoleRow;
+    private int antHoleCol;
 
     /**
      * Creates a Grid object and copies the information from the file given.
@@ -52,6 +54,9 @@ public class Grid extends GridTemplate {
                     walls.add(w);
                 } else if (grid[i][j] == 'X') {
                     fruit = new Fruit(100, i, j);
+                } else if (grid[i][j] == 'H') {
+                    antHoleRow = i;
+                    antHoleCol = j;
                 }
 
             }
@@ -212,7 +217,7 @@ public class Grid extends GridTemplate {
             }
         }
         if (insects != null) {
-            spawnInsect();
+//            spawnInsect();
             for (Insect i : insects) {
                 i.findOptimalPath(i.getRow(), i.getCol(), grid);
             }
@@ -242,35 +247,20 @@ public class Grid extends GridTemplate {
         }
 
         // add more insects
-//        if (grid[1][1] == '.') {
-//            insects.add(new Insect(1,1, grid));
-//            grid[1][1] = 'I';
-//        }
-
-    }
-    
-    public void spawnInsect() {
-        
-
-            int randCol =(int)(getTrueWidth() * Math.random());
-           
-            while(grid2[getTrueHeight()-2][randCol] != '.') {
-                randCol =(int)(getTrueWidth() * Math.random());
-            }
-            
-            grid2[getTrueHeight()-2][randCol] = 'I';
-            insects.add(new Insect(getTrueHeight()-2,randCol, grid));
-        
-    }
-
-    private boolean containsAnts(char[][] grid, int row) {
-        for(int c = 0; c < getTrueWidth(); c++) {
-            if(grid[row][c] == 'I') {
-                System.out.println(row+" "+c);
-                return true;
-            }
+        if (grid[antHoleRow + 1][antHoleCol] == '.') {
+            insects.add(new Insect(antHoleRow + 1, antHoleCol, grid));
+            grid[antHoleRow + 1][antHoleCol] = 'I';
+        } else if (grid[antHoleRow][antHoleCol + 1] == '.') {
+            insects.add(new Insect(antHoleRow, antHoleCol + 1, grid));
+            grid[antHoleRow][antHoleCol + 1] = 'I';
+        } else if (grid[antHoleRow][antHoleCol - 1] == '.') {
+            insects.add(new Insect(antHoleRow, antHoleCol - 1, grid));
+            grid[antHoleRow][antHoleCol - 1] = 'I';
+        } else if (grid[antHoleRow - 1][antHoleCol] == '.') {
+            insects.add(new Insect(antHoleRow - 1, antHoleCol, grid));
+            grid[antHoleRow - 1][antHoleCol] = 'I';
         }
-        return false;
+
     }
 
     public ArrayList<Insect> getInsects() {

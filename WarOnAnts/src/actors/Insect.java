@@ -110,7 +110,7 @@ public class Insect {
 
     private ArrayList<Point> findNext(int x, int y, char[][] grid) {
 
-        if (!isValid(x, y, grid) || grid[x][y] == '!' || grid[x][y] == '#' || grid[x][y] == 'P' || grid[x][y] == '@') {
+        if (!isValid(x, y, grid) || grid[x][y] == '!' || grid[x][y] == '#' || grid[x][y] == 'P' || grid[x][y] == 'H') {
             return null;
         } else if (grid[x][y] == 'X') {
             ArrayList<Point> list = new ArrayList<>();
