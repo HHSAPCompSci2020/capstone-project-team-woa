@@ -48,12 +48,11 @@ public class DrawingSurface extends PApplet {
         fill(0);
         textAlign(LEFT);
         textSize(12);
-        
+
         if (startGame) {
-            start = new GButton(this, 100, 60, 100, 40, "Press to Play"); 
-            
-        } 
-        else if(!startGame) {
+            start = new GButton(this, 100, 60, 100, 40, "Press to Play");
+
+        } else if (!startGame) {
             time++;
             if (time % 20 == 0 && !grid.gameOver) {
                 grid.act(this);
@@ -66,12 +65,22 @@ public class DrawingSurface extends PApplet {
                 startGame = true;
                 this.text("GAME OVER", 100, 100);
                 start = new GButton(this, 100, 120, 100, 40, "Play again?");
-                
-                
+
             }
 
+            time++;
+            if (time % 20 == 0 && !grid.gameOver) {
+                grid.act(this);
+            }
+
+            if (grid != null && !grid.gameOver) {
+
+                grid.draw(this, 0, 0, height, height);
+            } else if (grid.gameOver) {
+                this.text("GAME OVER", 100, 100);
+                ;
+            }
         }
-        
 
     }
 
@@ -123,10 +132,8 @@ public class DrawingSurface extends PApplet {
     }
 
     public void handleButtonEvents(GButton button, GEvent event) {
-          
-        startGame = false; 
-       
-         
+
+        startGame = false;
 
     }
 }
