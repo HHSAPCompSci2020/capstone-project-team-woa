@@ -30,7 +30,7 @@ public class Plant {
         home = wall;
         range = 1;
         damageDealt = 10;
-        blockWidth = 378/11;
+        blockWidth = 378/11*.75f;
 
     }
 

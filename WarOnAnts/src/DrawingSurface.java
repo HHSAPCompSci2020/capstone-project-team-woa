@@ -59,7 +59,7 @@ public class DrawingSurface extends PApplet {
 
             if (grid != null && !grid.gameOver) {
 
-                grid.draw(this, 0, 0, height, height);
+                grid.draw(this, 0, 0, height*.75f, height*.75f);
             } else if (grid.gameOver) {
                 this.text("GAME OVER", 100, 100);
                 start = new GButton(this, 300, 60, 100, 40, "Play again?");
