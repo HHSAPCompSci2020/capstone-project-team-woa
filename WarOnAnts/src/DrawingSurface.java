@@ -6,6 +6,10 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import actors.*;
+import g4p_controls.GAlign;
+import g4p_controls.GButton;
+import g4p_controls.GEvent;
+import g4p_controls.GLabel;
 import grid.Grid;
 import template.GridTemplate;
 import processing.core.PApplet;
@@ -24,6 +28,9 @@ public class DrawingSurface extends PApplet {
     private Grid grid;
     private int materials, coins;
     private int time;
+    private boolean startGame;
+    private GButton start;
+    private boolean repeat;
 
     public DrawingSurface() {
 
@@ -31,7 +38,9 @@ public class DrawingSurface extends PApplet {
         System.out.println(grid);
         materials = 5;
         coins = 15;
-        time=0;
+        time = 0;
+        startGame = true;
+        repeat = true;     
     }
 
     public void draw() {
@@ -39,17 +48,30 @@ public class DrawingSurface extends PApplet {
         fill(0);
         textAlign(LEFT);
         textSize(12);
-        time++;
-        if(time%20 == 0 && !grid.gameOver) {    
-        grid.act(this);
+        
+        if (startGame) {
+            start = new GButton(this, 100, 60, 100, 40, "Press to Play"); 
+            
+        } 
+        else if(!startGame) {
+            time++;
+            if (time % 20 == 0 && !grid.gameOver) {
+                grid.act(this);
+            }
+
+            if (grid != null && !grid.gameOver) {
+
+                grid.draw(this, 0, 0, height, height);
+            } else if (grid.gameOver) {
+                startGame = true;
+                this.text("GAME OVER", 100, 100);
+                start = new GButton(this, 100, 120, 100, 40, "Play again?");
+                
+                
+            }
+
         }
         
-        if (grid != null && !grid.gameOver) {
-
-            grid.draw(this, 0, 0, height, height);
-        } else if (grid.gameOver) {
-            this.text("GAME OVER", 100, 100);;
-        }
 
     }
 
@@ -71,8 +93,7 @@ public class DrawingSurface extends PApplet {
                 } else {
                     if (!grid.toggleWall(cellCoord.x, cellCoord.y)) {
                         materials++;
-                    }
-                    else {
+                    } else {
                         grid.toggleWall(cellCoord.x, cellCoord.y);
                     }
                 }
@@ -80,7 +101,7 @@ public class DrawingSurface extends PApplet {
         }
 
         // toggle between plant and wall
-        if (mouseButton == 3) {
+        if (mouseButton == RIGHT) {
             if (cellCoord != null && coins >= 0) {
                 if (coins != 0) {
                     if (grid.togglePlant(cellCoord.x, cellCoord.y)) {
@@ -92,21 +113,20 @@ public class DrawingSurface extends PApplet {
                 } else {
                     if (!grid.togglePlant(cellCoord.x, cellCoord.y)) {
                         materials++;
-                    }
-                    else {
+                    } else {
                         grid.togglePlant(cellCoord.x, cellCoord.y);
                     }
                 }
             }
         }
 
-        // act
-        if (mouseButton == RIGHT) {
-            if (cellCoord != null) {
-                grid.act(this);
-
-            }
-        }
     }
 
+    public void handleButtonEvents(GButton button, GEvent event) {
+          
+        startGame = false; 
+       
+         
+
+    }
 }
