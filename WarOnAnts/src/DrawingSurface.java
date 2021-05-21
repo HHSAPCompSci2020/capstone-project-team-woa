@@ -28,9 +28,8 @@ public class DrawingSurface extends PApplet {
     private Grid grid;
     private int materials, coins;
     private int time;
-    private boolean startGame;
+    private int gameCond;
     private GButton start;
-    private boolean repeat;
 
     public DrawingSurface() {
 
@@ -39,8 +38,8 @@ public class DrawingSurface extends PApplet {
         materials = 5;
         coins = 15;
         time = 0;
-        startGame = true;
-        repeat = true;     
+        gameCond = 0;
+
     }
 
     public void draw() {
@@ -48,28 +47,13 @@ public class DrawingSurface extends PApplet {
         fill(0);
         textAlign(LEFT);
         textSize(12);
+        if (gameCond == 0) {
+            start = new GButton(this, 300, 60, 100, 40, "Press to Play");
 
-        if (startGame) {
-            start = new GButton(this, 100, 60, 100, 40, "Press to Play");
-
-        } else if (!startGame) {
+        } else if (gameCond % 2 == 1) {
             time++;
-            if (time % 20 == 0 && !grid.gameOver) {
-                grid.act(this);
-            }
-
-            if (grid != null && !grid.gameOver) {
-
-                grid.draw(this, 0, 0, height, height);
-            } else if (grid.gameOver) {
-                startGame = true;
-                this.text("GAME OVER", 100, 100);
-                start = new GButton(this, 100, 120, 100, 40, "Play again?");
-
-            }
-
-            time++;
-            if (time % 20 == 0 && !grid.gameOver) {
+            start = new GButton(this, 300, 60, 100, 40, "Restart");
+            if (time % 10 == 0 && !grid.gameOver) {
                 grid.act(this);
             }
 
@@ -78,8 +62,13 @@ public class DrawingSurface extends PApplet {
                 grid.draw(this, 0, 0, height, height);
             } else if (grid.gameOver) {
                 this.text("GAME OVER", 100, 100);
-                ;
+                start = new GButton(this, 300, 60, 100, 40, "Play again?");
+
             }
+
+        } else if (gameCond % 2 == 0 ) {
+            grid = new Grid("maps/test4.txt");
+            gameCond++;
         }
 
     }
@@ -133,7 +122,7 @@ public class DrawingSurface extends PApplet {
 
     public void handleButtonEvents(GButton button, GEvent event) {
 
-        startGame = false;
-
+        gameCond++;
+        time=0;
     }
 }
