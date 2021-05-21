@@ -31,7 +31,7 @@ public class DrawingSurface extends PApplet {
         System.out.println(grid);
         materials = 5;
         coins = 15;
-        time=0;
+        time = 0;
     }
 
     public void draw() {
@@ -40,15 +40,16 @@ public class DrawingSurface extends PApplet {
         textAlign(LEFT);
         textSize(12);
         time++;
-        if(time%20 == 0 && !grid.gameOver) {    
-        grid.act(this);
+        if (time % 20 == 0 && !grid.gameOver) {
+            grid.act(this);
         }
-        
+
         if (grid != null && !grid.gameOver) {
 
             grid.draw(this, 0, 0, height, height);
         } else if (grid.gameOver) {
-            this.text("GAME OVER", 100, 100);;
+            this.text("GAME OVER", 100, 100);
+            ;
         }
 
     }
@@ -71,8 +72,7 @@ public class DrawingSurface extends PApplet {
                 } else {
                     if (!grid.toggleWall(cellCoord.x, cellCoord.y)) {
                         materials++;
-                    }
-                    else {
+                    } else {
                         grid.toggleWall(cellCoord.x, cellCoord.y);
                     }
                 }
@@ -92,8 +92,7 @@ public class DrawingSurface extends PApplet {
                 } else {
                     if (!grid.togglePlant(cellCoord.x, cellCoord.y)) {
                         materials++;
-                    }
-                    else {
+                    } else {
                         grid.togglePlant(cellCoord.x, cellCoord.y);
                     }
                 }
