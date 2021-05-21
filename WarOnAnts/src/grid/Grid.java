@@ -211,14 +211,7 @@ public class Grid extends GridTemplate {
      */
     public void act(PApplet marker) {
 
-        if (plants != null) {
-
-            for (Plant p : plants) {
-                p.act(marker, insects);
-            }
-        }
         if (insects != null) {
-//            spawnInsect();
             for (Insect i : insects) {
                 i.findOptimalPath(i.getRow(), i.getCol(), grid);
             }
@@ -236,12 +229,26 @@ public class Grid extends GridTemplate {
             // Remove dead insects whose health is non-positive.
             insects.removeAll(dead);
         }
-
+        
         if (plants != null) {
+
             for (Plant p : plants) {
                 p.act(marker, insects);
             }
         }
+        
+        if (insects != null) {
+            ArrayList<Insect> dead = new ArrayList<>();
+            for (Insect i : insects) {
+                if (i.getHealth() <= 0) {
+                    dead.add(i);
+                }
+            }
+
+            // Remove dead insects whose health is non-positive.
+            insects.removeAll(dead);
+        }
+
         if (fruit.getHealth() <= 0) {
             grid[fruit.getRow()][fruit.getCol()] = '.';
             System.out.println("Game Over");

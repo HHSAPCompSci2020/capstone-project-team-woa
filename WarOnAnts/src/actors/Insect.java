@@ -27,7 +27,7 @@ public class Insect {
         this.row = r;
         this.col = c;
         this.grid = grid;
-        health = 50;
+        health = 30;
     }
 
     /**
