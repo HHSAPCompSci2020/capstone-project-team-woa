@@ -39,7 +39,11 @@ public class DrawingSurface extends PApplet {
         fill(0);
         textAlign(LEFT);
         textSize(12);
-
+        time++;
+        if(time%20 == 0 && !grid.gameOver) {    
+        grid.act(this);
+        }
+        
         if (grid != null && !grid.gameOver) {
 
             grid.draw(this, 0, 0, height, height);
