@@ -23,6 +23,7 @@ public class DrawingSurface extends PApplet {
     // When you progress to a new prompt, modify this field.
     private Grid grid;
     private int materials, coins;
+    private int time;
 
     public DrawingSurface() {
 
@@ -30,6 +31,7 @@ public class DrawingSurface extends PApplet {
         System.out.println(grid);
         materials = 5;
         coins = 15;
+        time=0;
     }
 
     public void draw() {
@@ -37,8 +39,9 @@ public class DrawingSurface extends PApplet {
         fill(0);
         textAlign(LEFT);
         textSize(12);
-
+        time++;
         if (grid != null) {
+            
             grid.draw(this, 0, 0, height, height);
         }
 

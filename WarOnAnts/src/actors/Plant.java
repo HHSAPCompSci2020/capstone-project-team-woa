@@ -49,7 +49,7 @@ public class Plant {
                     neighbors.add(returnInsect(r, c, insects));
                 }
 
-            } 
+            }
         }
 
         if (neighbors.size() != 0)
@@ -57,7 +57,7 @@ public class Plant {
         {
             // Calculate the index of a random insect and calculate its location
             int randIndex = (int) (Math.random() * neighbors.size());
-
+            
             // makes sure the insect does really exist
             while (neighbors.get(randIndex) == null) {
                 randIndex = (int) Math.random() * neighbors.size();
@@ -67,15 +67,14 @@ public class Plant {
 
             // Draw a line from the plant to the insect
 
-            marker.line(getRow(), getCol(), insectRow, insectCol);
+            marker.line(getCol()*378/12, getRow()*378/12, insectCol*378/12, insectRow*378/12);
 
             // Does damage to the insect
             neighbors.get(randIndex).takeDamage(damageDealt);
-            System.out.println("HI");
 
         }
- 
-    } 
+
+    }
 
     /**
      * The plant continues to act, which includes shooting insects that get too
