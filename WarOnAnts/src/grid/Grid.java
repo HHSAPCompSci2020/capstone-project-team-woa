@@ -34,7 +34,7 @@ public class Grid extends GridTemplate {
      * @param filename the name of the map file being read
      */
     public Grid(String filename) {
-        super(20, 20, filename);
+        super(11, 11, filename);
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 grid2[i][j] = grid[i][j];
@@ -260,6 +260,17 @@ public class Grid extends GridTemplate {
             insects.add(new Insect(antHoleRow - 1, antHoleCol, grid));
             grid[antHoleRow - 1][antHoleCol] = 'I';
         }
+        
+        if ((grid[antHoleRow + 1][antHoleCol] == '#' || grid[antHoleRow + 1][antHoleCol] == 'P') 
+                && (grid[antHoleRow][antHoleCol + 1] == '#' || grid[antHoleRow][antHoleCol + 1] == 'P')
+                && (grid[antHoleRow][antHoleCol - 1] == '#' || grid[antHoleRow][antHoleCol - 1] == 'P')
+                && (grid[antHoleRow - 1][antHoleCol] == '#' || grid[antHoleRow - 1][antHoleCol] == 'P')) {
+            System.out.println("You cannot cover the ant hole");
+            remove(antHoleRow + 1, antHoleCol);
+            remove(antHoleRow, antHoleCol + 1);
+            remove(antHoleRow, antHoleCol - 1);
+            remove(antHoleRow - 1, antHoleCol);
+        } 
 
     }
 

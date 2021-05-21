@@ -20,18 +20,18 @@ public abstract class GridTemplate {
      * Construct an empty 2D array with some default dimensions.
      */
     public GridTemplate() {
-        grid = new char[20][20];
+        grid = new char[12][9];
     }
 
     /**
      * Construct an empty 2D array with dimensions width and height, then fill it with data from the file filename.
      * 
-     * @param width    The width of the grid.
-     * @param height   The height of the grid.
+     * @param row    The number of rows on the grid.
+     * @param col    The number of columns on the grid.
      * @param filename The text file to read from.
      */
-    public GridTemplate(int width, int height, String filename) {
-        grid = new char[width][height];
+    public GridTemplate(int row, int col, String filename) {
+        grid = new char[row][col];
         this.readData(filename, grid);
     }
 
