@@ -67,7 +67,7 @@ public class Plant {
 
             // Draw a line from the plant to the insect
 
-            marker.line(getCol()*378/12, getRow()*378/12, insectCol*378/12, insectRow*378/12);
+            marker.line(getCol()*378/11+378/22, getRow()*378/11+378/22, insectCol*378/11+378/22, insectRow*378/11+378/22);
 
             // Does damage to the insect
             neighbors.get(randIndex).takeDamage(damageDealt);
