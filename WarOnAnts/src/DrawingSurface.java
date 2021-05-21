@@ -38,8 +38,10 @@ public class DrawingSurface extends PApplet {
         textAlign(LEFT);
         textSize(12);
 
-        if (grid != null) {
+        if (grid != null && !grid.gameOver) {
             grid.draw(this, 0, 0, height, height);
+        } else if (grid.gameOver) {
+            this.text("GAME OVER", 100, 100);;
         }
 
     }

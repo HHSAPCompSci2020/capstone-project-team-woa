@@ -27,6 +27,7 @@ public class Grid extends GridTemplate {
     private Fruit fruit;
     private int antHoleRow;
     private int antHoleCol;
+    public boolean gameOver = false;
 
     /**
      * Creates a Grid object and copies the information from the file given.
@@ -244,6 +245,7 @@ public class Grid extends GridTemplate {
         if (fruit.getHealth() <= 0) {
             grid[fruit.getRow()][fruit.getCol()] = '.';
             System.out.println("Game Over");
+            gameOver = true;
         }
 
         // add more insects
