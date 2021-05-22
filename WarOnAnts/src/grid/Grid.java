@@ -104,21 +104,24 @@ public class Grid extends GridTemplate {
      * @param c column of the location to be toggled
      */
     public boolean toggleWall(int r, int c) {
-        if (grid[r][c] == '#') {
-            for (int i = 0; i < walls.size(); i++) {
-                if (walls.get(i).getRow() == r && walls.get(i).getCol() == c) {
-                    walls.remove(i);
+        if (r > 11 || r < 0 || c > 11 || c < 0) {
+            return false;
+        } else {
+            if (grid[r][c] == '#') {
+                for (int i = 0; i < walls.size(); i++) {
+                    if (walls.get(i).getRow() == r && walls.get(i).getCol() == c) {
+                        walls.remove(i);
+                    }
                 }
+                grid[r][c] = '.';
+            } else if (grid[r][c] == '.') {
+                grid[r][c] = '#';
+                walls.add(new Wall(r, c));
+                return true;
+
             }
-            grid[r][c] = '.';
-        } else if (grid[r][c] == '.') {
-            grid[r][c] = '#';
-            walls.add(new Wall(r, c));
-            return true;
-
+            return false;
         }
-        return false;
-
     }
 
     /**
@@ -128,22 +131,25 @@ public class Grid extends GridTemplate {
      * @param c column of the location to be toggled
      */
     public boolean togglePlant(int r, int c) {
-        if (grid[r][c] == 'P') {
-            for (int i = 0; i < plants.size(); i++) {
-                if (plants.get(i).getRow() == r && plants.get(i).getCol() == c) {
-                    plants.remove(i);
+        if (r > 11 || r < 0 || c > 11 || c < 0) {
+            return false;
+        } else {
+            if (grid[r][c] == 'P') {
+                for (int i = 0; i < plants.size(); i++) {
+                    if (plants.get(i).getRow() == r && plants.get(i).getCol() == c) {
+                        plants.remove(i);
+                    }
                 }
+                grid[r][c] = '#';
+            } else if (grid[r][c] == '#') {
+                grid[r][c] = 'P';
+                Wall w = new Wall(r, c);
+                plants.add(new Plant(w));
+                return true;
+
             }
-            grid[r][c] = '#';
-        } else if (grid[r][c] == '#') {
-            grid[r][c] = 'P';
-            Wall w = new Wall(r, c);
-            plants.add(new Plant(w));
-            return true;
-
+            return false;
         }
-        return false;
-
 
     }
 
@@ -177,26 +183,29 @@ public class Grid extends GridTemplate {
      */
     public Object get(int r, int c) {
 
-        if (grid[r][c] == 'I') {
-            for (int i = 0; i < insects.size(); i++) {
-                if (insects.get(i).getCol() == c && insects.get(i).getRow() == r) {
-                    return insects.get(i);
+        if (r > 11 || r < 0 || c > 11 || c < 0) {
+            return new Object();
+        } else {
+            if (grid[r][c] == 'I') {
+                for (int i = 0; i < insects.size(); i++) {
+                    if (insects.get(i).getCol() == c && insects.get(i).getRow() == r) {
+                        return insects.get(i);
+                    }
                 }
-            }
-        } else if (grid[r][c] == 'P') {
-            for (int p = 0; p < plants.size(); p++) {
-                if (plants.get(p).getCol() == c && plants.get(p).getRow() == r) {
-                    return plants.get(p);
+            } else if (grid[r][c] == 'P') {
+                for (int p = 0; p < plants.size(); p++) {
+                    if (plants.get(p).getCol() == c && plants.get(p).getRow() == r) {
+                        return plants.get(p);
+                    }
                 }
-            }
-        } else if (grid[r][c] == '#') {
-            for (int w = 0; w < walls.size(); w++) {
-                if (walls.get(w).getCol() == c && walls.get(w).getRow() == r) {
-                    return walls.get(w);
+            } else if (grid[r][c] == '#') {
+                for (int w = 0; w < walls.size(); w++) {
+                    if (walls.get(w).getCol() == c && walls.get(w).getRow() == r) {
+                        return walls.get(w);
+                    }
                 }
             }
         }
-
         return null;
     }
 
@@ -229,14 +238,14 @@ public class Grid extends GridTemplate {
             // Remove dead insects whose health is non-positive.
             insects.removeAll(dead);
         }
-        
+
         if (plants != null) {
 
             for (Plant p : plants) {
                 p.act(marker, insects);
             }
         }
-        
+
         if (insects != null) {
             ArrayList<Insect> dead = new ArrayList<>();
             for (Insect i : insects) {
@@ -269,8 +278,8 @@ public class Grid extends GridTemplate {
             insects.add(new Insect(antHoleRow - 1, antHoleCol, grid));
             grid[antHoleRow - 1][antHoleCol] = 'I';
         }
-        
-        if ((grid[antHoleRow + 1][antHoleCol] == '#' || grid[antHoleRow + 1][antHoleCol] == 'P') 
+
+        if ((grid[antHoleRow + 1][antHoleCol] == '#' || grid[antHoleRow + 1][antHoleCol] == 'P')
                 && (grid[antHoleRow][antHoleCol + 1] == '#' || grid[antHoleRow][antHoleCol + 1] == 'P')
                 && (grid[antHoleRow][antHoleCol - 1] == '#' || grid[antHoleRow][antHoleCol - 1] == 'P')
                 && (grid[antHoleRow - 1][antHoleCol] == '#' || grid[antHoleRow - 1][antHoleCol] == 'P')) {
@@ -279,7 +288,7 @@ public class Grid extends GridTemplate {
             remove(antHoleRow, antHoleCol + 1);
             remove(antHoleRow, antHoleCol - 1);
             remove(antHoleRow - 1, antHoleCol);
-        } 
+        }
 
     }
 
@@ -294,27 +303,28 @@ public class Grid extends GridTemplate {
     public ArrayList<Wall> getWalls() {
         return walls;
     }
-    
+
     public int getTrueWidth() {
         int count = 0;
-        for(int c = 0; c < grid2[0].length; c++) {
-            if(grid2[0][c] == 0) {
+        for (int c = 0; c < grid2[0].length; c++) {
+            if (grid2[0][c] == 0) {
                 break;
             }
             count++;
         }
-        
+
         return count;
     }
+
     public int getTrueHeight() {
         int count = 0;
-        for(int r = 0; r < grid2.length; r++) {
-            if(grid2[r][0] == 0) {
+        for (int r = 0; r < grid2.length; r++) {
+            if (grid2[r][0] == 0) {
                 break;
             }
             count++;
         }
-        
+
         return count;
     }
 

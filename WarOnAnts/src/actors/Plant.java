@@ -18,7 +18,7 @@ public class Plant {
     protected int range;
     protected Wall home;
     protected int level;
-    protected float blockWidth; 
+    protected float blockWidth;
 
     /**
      * Initializes the Plant by giving a value to the field
@@ -30,7 +30,7 @@ public class Plant {
         home = wall;
         range = 1;
         damageDealt = 10;
-        blockWidth = 378/11*.75f;
+        blockWidth = 378 / 11 * .75f;
 
     }
 
@@ -59,7 +59,7 @@ public class Plant {
         {
             // Calculate the index of a random insect and calculate its location
             int randIndex = (int) (Math.random() * neighbors.size());
-            
+
             // makes sure the insect does really exist
             while (neighbors.get(randIndex) == null) {
                 randIndex = (int) Math.random() * neighbors.size();
@@ -68,7 +68,8 @@ public class Plant {
             int insectCol = neighbors.get(randIndex).getCol();
 
             // Draw a line from the plant to the insect
-            marker.line(getCol()*blockWidth+blockWidth/2, getRow()*blockWidth+blockWidth/2, insectCol*blockWidth+blockWidth/2, insectRow*blockWidth+blockWidth/2);
+            marker.line(getCol() * blockWidth + blockWidth / 2, getRow() * blockWidth + blockWidth / 2,
+                    insectCol * blockWidth + blockWidth / 2, insectRow * blockWidth + blockWidth / 2);
 
             // Does damage to the insect
             neighbors.get(randIndex).takeDamage(damageDealt);

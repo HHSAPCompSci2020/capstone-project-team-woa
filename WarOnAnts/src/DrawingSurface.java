@@ -30,6 +30,8 @@ public class DrawingSurface extends PApplet {
     private int time;
     private int gameCond;
     private GButton start;
+    private GLabel coinDisplay;
+    private GLabel matDisplay;
 
     public DrawingSurface() {
 
@@ -42,32 +44,47 @@ public class DrawingSurface extends PApplet {
 
     }
 
+    public void setup() {
+        coinDisplay = new GLabel(this, 300, 100, 560, 20, "");
+        start = new GButton(this, 300, 60, 100, 40, "Press to Play");
+        matDisplay = new GLabel(this, 300, 140, 560, 20, "");
+
+    }
+
     public void draw() {
         background(255);
         fill(0);
         textAlign(LEFT);
         textSize(12);
         if (gameCond == 0) {
-            start = new GButton(this, 300, 60, 100, 40, "Press to Play");
+            start.setText("Press to Play");
 
         } else if (gameCond % 2 == 1) {
+
+            coinDisplay.setText("Coins: " + coins);
+            matDisplay.setText("Materials: " + materials);
             time++;
-            start = new GButton(this, 300, 60, 100, 40, "Restart");
-            if (time % 10 == 0 && !grid.gameOver) {
+            start.setText("Restart");
+            if (time % 30 == 0 && !grid.gameOver) {
                 grid.act(this);
             }
 
             if (grid != null && !grid.gameOver) {
 
-                grid.draw(this, 0, 0, height*.75f, height*.75f);
+                grid.draw(this, 0, 0, height * .75f, height * .75f);
             } else if (grid.gameOver) {
+                coinDisplay.setText("");
+                matDisplay.setText("");
+
                 this.text("GAME OVER", 100, 100);
-                start = new GButton(this, 300, 60, 100, 40, "Play again?");
+                start.setText("Play again?");
 
             }
 
-        } else if (gameCond % 2 == 0 ) {
+        } else if (gameCond % 2 == 0) {
             grid = new Grid("maps/test4.txt");
+            coins = 15;
+            materials = 5;
             gameCond++;
         }
 
@@ -75,22 +92,31 @@ public class DrawingSurface extends PApplet {
 
     public void mousePressed() {
         Point click = new Point(mouseX, mouseY);
-        float dimension = height;
+        float dimension = height * .75f;
         Point cellCoord = grid.clickToIndex(click, 0, 0, dimension, dimension);
 
         // toggle between wall and path
         if (mouseButton == LEFT) {
             if (cellCoord != null && materials >= 0) {
                 if (materials != 0) {
+                    
                     if (grid.toggleWall(cellCoord.x, cellCoord.y)) {
                         materials--;
 
                     } else {
-                        materials++;
+                        if (grid.get(cellCoord.x, cellCoord.y) == null) {
+                            if (materials < 5) {
+                                materials++;
+                            } 
+                        }
                     }
+
                 } else {
                     if (!grid.toggleWall(cellCoord.x, cellCoord.y)) {
-                        materials++;
+                        if (materials < 5) {
+                            materials++;
+                        } 
+
                     } else {
                         grid.toggleWall(cellCoord.x, cellCoord.y);
                     }
@@ -106,11 +132,16 @@ public class DrawingSurface extends PApplet {
                         coins--;
 
                     } else {
-                        coins--;
+                        if (grid.get(cellCoord.x, cellCoord.y) instanceof Wall) {
+                            if (coins < 15)
+                                coins++;
+                        }
                     }
+
                 } else {
                     if (!grid.togglePlant(cellCoord.x, cellCoord.y)) {
-                        materials++;
+                        if (coins < 15)
+                            coins++;
                     } else {
                         grid.togglePlant(cellCoord.x, cellCoord.y);
                     }
@@ -123,6 +154,6 @@ public class DrawingSurface extends PApplet {
     public void handleButtonEvents(GButton button, GEvent event) {
 
         gameCond++;
-        time=0;
+        time = 0;
     }
 }
