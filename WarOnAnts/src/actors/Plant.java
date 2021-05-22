@@ -9,7 +9,7 @@ import processing.core.PApplet;
  * A plant that attacks any insect that is nearby. As it levels up, damage and
  * range increase
  * 
- * @author Dhruv Masurekar
+ * @author Dhruv Masurekar co-author William Hyun
  */
 
 public class Plant {
@@ -41,7 +41,7 @@ public class Plant {
      * @param marker  The PApplet that draws the beam
      * @param insects The insects that are in the grid
      */
-    public void shoot(PApplet marker, ArrayList<Insect> insects) {
+    public ArrayList<Float> shoot(PApplet marker, ArrayList<Insect> insects) {
         // Find neighboring insects
         ArrayList<Insect> neighbors = new ArrayList<Insect>();
 
@@ -74,22 +74,31 @@ public class Plant {
             // Does damage to the insect
             neighbors.get(randIndex).takeDamage(damageDealt);
 
-        }
+            ArrayList<Float> line = new ArrayList<>();
+            line.add(getCol() * blockWidth + blockWidth / 2);
+            line.add(getRow() * blockWidth + blockWidth / 2);
+            line.add(insectCol * blockWidth + blockWidth / 2);
+            line.add(insectRow * blockWidth + blockWidth / 2);
 
+            return line;
+        }
+        return null;
     }
 
     /**
      * The plant continues to act, which includes shooting insects that get too
      * close
      * 
-     * @param m       The PApllet used to draw the beam;
+     * @param m       The PApllet used to draw the beam
      * @param insects The insects that are in the grid
+     * @return        The list of lines to be drawn
      */
-    public void act(PApplet m, ArrayList<Insect> insects) {
+    public ArrayList<Float> act(PApplet m, ArrayList<Insect> insects) {
         if (hasNeighbor(insects)) {
 
-            shoot(m, insects);
+            return (shoot(m, insects));
         }
+        return null;
     }
 
     /**

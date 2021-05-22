@@ -27,7 +27,10 @@ public class Grid extends GridTemplate {
     private Fruit fruit;
     private int antHoleRow;
     private int antHoleCol;
+    private ArrayList<ArrayList<Float>> lines = new ArrayList<ArrayList<Float>>();
+    
     public boolean gameOver = false;
+    
 
     /**
      * Creates a Grid object and copies the information from the file given.
@@ -240,9 +243,12 @@ public class Grid extends GridTemplate {
         }
 
         if (plants != null) {
-
+            lines.clear();
             for (Plant p : plants) {
-                p.act(marker, insects);
+                ArrayList<Float> line = p.act(marker, insects);
+                if (line != null) {
+                    lines.add(line);
+                }
             }
         }
 
@@ -326,6 +332,13 @@ public class Grid extends GridTemplate {
         }
 
         return count;
+    }
+    
+    public void draw(PApplet marker, float x, float y, float width, float height) {
+        super.draw(marker, x, y, width, height);
+        for (ArrayList<Float> line : lines) {
+            marker.line(line.get(0), line.get(1), line.get(2), line.get(3));
+        }
     }
 
 }

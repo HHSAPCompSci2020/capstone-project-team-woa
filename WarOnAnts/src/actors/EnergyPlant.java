@@ -28,8 +28,8 @@ public class EnergyPlant extends Plant {
      * @param insects The insects that are in the grid
      */
     @Override
-    public void shoot(PApplet marker,ArrayList<Insect> insects) {
-        super.shoot(marker,insects);
+    public ArrayList<Float> shoot(PApplet marker,ArrayList<Insect> insects) {
+        return super.shoot(marker,insects);
 
     }
 
