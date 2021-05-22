@@ -58,6 +58,8 @@ public class DrawingSurface extends PApplet {
         fill(0);
         textAlign(LEFT);
         textSize(12);
+        stroke(255,255,255);
+       
         if (gameCond == 0) {
             start.setText("Press to Play");
 
@@ -81,6 +83,12 @@ public class DrawingSurface extends PApplet {
                 start.setText("Play again?");
 
             }
+            // Remove based on preference
+            pushStyle();
+            stroke(0,0,0);
+            noFill();
+            rect(0,0,height*.75f,height*.75f);
+            popStyle();
 
         } else if (gameCond % 2 == 0) {
             grid = new Grid("maps/test4.txt");
@@ -195,8 +203,8 @@ public class DrawingSurface extends PApplet {
     }
 
     public boolean hasWall(ArrayList<Wall> list, Wall o) {
-        for (Wall p : list) {
-            if (p.getCol() == o.getCol() && p.getRow() == o.getRow()) {
+        for (Wall w : list) {
+            if (w.getCol() == o.getCol() && w.getRow() == o.getRow()) {
                 return true;
             }
         }
