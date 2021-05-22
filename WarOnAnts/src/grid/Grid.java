@@ -111,6 +111,7 @@ public class Grid extends GridTemplate {
             return false;
         } else {
             if (grid[r][c] == '#') {
+                
                 for (int i = 0; i < walls.size(); i++) {
                     if (walls.get(i).getRow() == r && walls.get(i).getCol() == c) {
                         walls.remove(i);
@@ -144,6 +145,7 @@ public class Grid extends GridTemplate {
                     }
                 }
                 grid[r][c] = '#';
+                walls.add(new Wall(r,c));
             } else if (grid[r][c] == '#') {
                 grid[r][c] = 'P';
                 Wall w = new Wall(r, c);
@@ -337,7 +339,11 @@ public class Grid extends GridTemplate {
     public void draw(PApplet marker, float x, float y, float width, float height) {
         super.draw(marker, x, y, width, height);
         for (ArrayList<Float> line : lines) {
+            marker.pushStyle();
+            marker.stroke(55,175,255);
             marker.line(line.get(0), line.get(1), line.get(2), line.get(3));
+            marker.popStyle();
+
         }
     }
 

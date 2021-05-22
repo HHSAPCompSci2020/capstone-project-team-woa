@@ -25,13 +25,15 @@ import processing.core.PImage;
 public class DrawingSurface extends PApplet {
 
     // When you progress to a new prompt, modify this field.
-    private Grid grid;
+    private Grid grid = new Grid("maps/test4.txt");
     private int materials, coins;
     private int time;
     private int gameCond;
     private GButton start;
     private GLabel coinDisplay;
     private GLabel matDisplay;
+    private ArrayList<Wall> initWalls = grid.getWalls();
+    private ArrayList<Plant> initPlants = grid.getPlants();
 
     public DrawingSurface() {
 
@@ -60,7 +62,6 @@ public class DrawingSurface extends PApplet {
             start.setText("Press to Play");
 
         } else if (gameCond % 2 == 1) {
-
             coinDisplay.setText("Coins: " + coins);
             matDisplay.setText("Materials: " + materials);
             time++;
@@ -98,52 +99,78 @@ public class DrawingSurface extends PApplet {
         // toggle between wall and path
         if (mouseButton == LEFT) {
             if (cellCoord != null && materials >= 0) {
+
                 if (materials != 0) {
-                    
                     if (grid.toggleWall(cellCoord.x, cellCoord.y)) {
                         materials--;
 
                     } else {
-                        if (grid.get(cellCoord.x, cellCoord.y) == null) {
-                            if (materials < 5) {
-                                materials++;
-                            } 
+                        grid.toggleWall(cellCoord.x, cellCoord.y);
+                        if (grid.get(cellCoord.x, cellCoord.y) instanceof Wall) {
+                            if (!hasWall(initWalls, (Wall) grid.get(cellCoord.x, cellCoord.y))) {
+                                if (materials < 5) {
+                                    materials++;
+                                }
+                                grid.toggleWall(cellCoord.x, cellCoord.y);
+                            }
                         }
+
                     }
 
-                } else {
-                    if (!grid.toggleWall(cellCoord.x, cellCoord.y)) {
-                        if (materials < 5) {
-                            materials++;
-                        } 
+                }
 
-                    } else {
-                        grid.toggleWall(cellCoord.x, cellCoord.y);
+                else {
+                    if (grid.get(cellCoord.x, cellCoord.y) instanceof Wall) {
+                        if (!hasWall(initWalls, (Wall) grid.get(cellCoord.x, cellCoord.y))) {
+                            if (!grid.toggleWall(cellCoord.x, cellCoord.y)) {
+                                materials++;
+
+                            } else {
+                                grid.toggleWall(cellCoord.x, cellCoord.y);
+                            }
+                        }
+
                     }
                 }
             }
+
         }
 
         // toggle between plant and wall
-        if (mouseButton == RIGHT) {
+        if (mouseButton == RIGHT)
+
+        {
             if (cellCoord != null && coins >= 0) {
                 if (coins != 0) {
                     if (grid.togglePlant(cellCoord.x, cellCoord.y)) {
                         coins--;
 
                     } else {
-                        if (grid.get(cellCoord.x, cellCoord.y) instanceof Wall) {
-                            if (coins < 15)
-                                coins++;
+                        grid.togglePlant(cellCoord.x, cellCoord.y);
+                        if (grid.get(cellCoord.x, cellCoord.y) instanceof Plant) {
+                            if (!hasPlant(initPlants, (Plant) grid.get(cellCoord.x, cellCoord.y))) {
+                                if (coins < 15) {
+                                    coins++;
+                                }
+                                grid.togglePlant(cellCoord.x, cellCoord.y);
+                            }
                         }
+
                     }
 
-                } else {
-                    if (!grid.togglePlant(cellCoord.x, cellCoord.y)) {
-                        if (coins < 15)
-                            coins++;
-                    } else {
-                        grid.togglePlant(cellCoord.x, cellCoord.y);
+                }
+
+                else {
+                    if (grid.get(cellCoord.x, cellCoord.y) instanceof Plant) {
+                        if (!hasPlant(initPlants, (Plant) grid.get(cellCoord.x, cellCoord.y))) {
+                            if (!grid.togglePlant(cellCoord.x, cellCoord.y)) {
+                                coins++;
+
+                            } else {
+                                grid.togglePlant(cellCoord.x, cellCoord.y);
+                            }
+                        }
+
                     }
                 }
             }
@@ -155,5 +182,25 @@ public class DrawingSurface extends PApplet {
 
         gameCond++;
         time = 0;
+    }
+
+    public boolean hasPlant(ArrayList<Plant> list, Plant o) {
+        for (Plant p : list) {
+            if (p.getCol() == o.getCol() && p.getRow() == o.getRow()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean hasWall(ArrayList<Wall> list, Wall o) {
+        for (Wall p : list) {
+            if (p.getCol() == o.getCol() && p.getRow() == o.getRow()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
