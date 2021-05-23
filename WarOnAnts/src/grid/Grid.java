@@ -19,7 +19,7 @@ import template.GridTemplate;
  */
 public class Grid extends GridTemplate {
 
- //   private char[][] grid2 = new char[20][20];
+    // private char[][] grid2 = new char[20][20];
 
     private ArrayList<Insect> insects = new ArrayList<Insect>();
     private ArrayList<Plant> plants = new ArrayList<Plant>();
@@ -28,9 +28,8 @@ public class Grid extends GridTemplate {
     public int antHoleRow;
     public int antHoleCol;
     private ArrayList<ArrayList<Float>> lines = new ArrayList<ArrayList<Float>>();
-    
+
     public boolean gameOver = false;
-    
 
     /**
      * Creates a Grid object and copies the information from the file given.
@@ -144,7 +143,7 @@ public class Grid extends GridTemplate {
                     }
                 }
                 grid[r][c] = '#';
-                walls.add(new Wall(r,c));
+                walls.add(new Wall(r, c));
             } else if (grid[r][c] == '#') {
                 grid[r][c] = 'P';
                 Wall w = new Wall(r, c);
@@ -227,7 +226,9 @@ public class Grid extends GridTemplate {
     /**
      * Starts and continues to run the program
      */
-    public void act(PApplet marker) {
+    public int act(PApplet marker) {
+
+        int result = 0;
 
         if (insects != null) {
             for (Insect i : insects) {
@@ -241,6 +242,7 @@ public class Grid extends GridTemplate {
                 i.act(fruit);
                 if (i.getHealth() <= 0) {
                     dead.add(i);
+                    result++;
                 }
             }
 
@@ -256,18 +258,6 @@ public class Grid extends GridTemplate {
                     lines.add(line);
                 }
             }
-        }
-
-        if (insects != null) {
-            ArrayList<Insect> dead = new ArrayList<>();
-            for (Insect i : insects) {
-                if (i.getHealth() <= 0) {
-                    dead.add(i);
-                }
-            }
-
-            // Remove dead insects whose health is non-positive.
-            insects.removeAll(dead);
         }
 
         if (fruit.getHealth() <= 0) {
@@ -301,7 +291,7 @@ public class Grid extends GridTemplate {
             remove(antHoleRow, antHoleCol - 1);
             remove(antHoleRow - 1, antHoleCol);
         }
-
+        return result;
     }
 
     public ArrayList<Insect> getInsects() {
@@ -315,7 +305,7 @@ public class Grid extends GridTemplate {
     public ArrayList<Wall> getWalls() {
         return walls;
     }
-    
+
     public Fruit getFruit() {
         return fruit;
     }
@@ -343,12 +333,12 @@ public class Grid extends GridTemplate {
 //
 //        return count;
 //    }
-    
+
     public void draw(PApplet marker, float x, float y, float width, float height) {
         super.draw(marker, x, y, width, height);
         for (ArrayList<Float> line : lines) {
             marker.pushStyle();
-            marker.stroke(55,175,255);
+            marker.stroke(55, 175, 255);
             marker.line(line.get(0), line.get(1), line.get(2), line.get(3));
             marker.popStyle();
 

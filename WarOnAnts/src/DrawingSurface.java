@@ -85,7 +85,7 @@ public class DrawingSurface extends PApplet {
             start.setText("Restart");
 
             if (time % 30 == 0 && !grid.gameOver) {
-                grid.act(this);
+                coins += grid.act(this);
             }
             // pushStyle();
             for (int j = 0; j < grid.getInsects().size(); j++) {
@@ -149,6 +149,10 @@ public class DrawingSurface extends PApplet {
             gameCond++;
         }
 
+    }
+    
+    public void addCoin() {
+        coins++;
     }
 
     public void mousePressed() {
