@@ -64,18 +64,18 @@ public abstract class GridTemplate {
      * @param height The pixel height of the grid drawing.
      */
     public void draw(PApplet marker, float x, float y, float width, float height) {
-        marker.noFill();
+       // marker.noFill();
 
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-
-                float rectWidth = width / grid[0].length;
-                float rectHeight = height / grid.length;
-                float rectX = x + j * rectWidth;
-                float rectY = y + i * rectHeight;
-
-                marker.text(grid[i][j], rectX + 4, rectY + 13);
-                marker.rect(rectX, rectY, rectWidth, rectHeight);
+//        for (int i = 0; i < grid.length; i++) {
+//            for (int j = 0; j < grid[0].length; j++) {
+//
+//                float rectWidth = width / grid[0].length;
+//                float rectHeight = height / grid.length;
+//                float rectX = x + j * rectWidth;
+//                float rectY = y + i * rectHeight;
+//
+//                marker.text(grid[i][j], rectX + 4, rectY + 13);
+//                marker.rect(rectX, rectY, rectWidth, rectHeight);
 //                if (grid[i][j] == '*' || grid[i][j] == '#') {
 //                    marker.fill(110);
 //                    marker.rect(rectX, rectY, rectWidth, rectHeight);
@@ -90,8 +90,8 @@ public abstract class GridTemplate {
 //                } else {
 //                    marker.rect(rectX, rectY, rectWidth, rectHeight);
 //                }
-            }
-        }
+//            }
+//        }
     }
 
     /**

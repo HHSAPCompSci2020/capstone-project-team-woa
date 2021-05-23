@@ -36,6 +36,8 @@ public class DrawingSurface extends PApplet {
     private PImage insectImage;
     private PImage wallImage;
     private PImage plantImage;
+    private PImage holeImage;
+    private PImage fruitImage;
 
     public DrawingSurface() {
 
@@ -54,6 +56,8 @@ public class DrawingSurface extends PApplet {
         insectImage = loadImage("Ant.png");
         wallImage = loadImage("Wall.png");
         plantImage = loadImage("Plant.png");
+        holeImage = loadImage("Hole.png");
+        fruitImage = loadImage("Fruit1.png");
     }
 
     public void draw() {
@@ -90,6 +94,12 @@ public class DrawingSurface extends PApplet {
                 image(wallImage, height / 11 * .75f * grid.getWalls().get(k).getCol(),
                         height / 11 * .75f * grid.getWalls().get(k).getRow(), height / 11 * .75f, height / 11 * .75f);
             }
+            
+            image(holeImage, height / 11 * .75f * grid.antHoleCol,
+                    height / 11 * .75f * grid.antHoleRow, height / 11 * .75f, height / 11 * .75f);
+            
+            image(fruitImage, height / 11 * .75f * grid.getFruit().getCol(),
+                    height / 11 * .75f * grid.getFruit().getRow(), height / 11 * .75f, height / 11 * .75f);
             // popStyle();
 
             if (grid != null && !grid.gameOver) {
@@ -103,7 +113,10 @@ public class DrawingSurface extends PApplet {
 //                }
                 
                 grid.draw(this, 0, 0, height * .75f, height * .75f);
-               
+                for (int j = 0; j < grid.getInsects().size(); j++) {
+                    image(insectImage, height / 11 * .75f * grid.getInsects().get(j).getCol(),
+                            height / 11 * .75f * grid.getInsects().get(j).getRow(), height / 11 * .75f, height / 11 * .75f);
+                }
                 pushStyle();
                 stroke(0, 0, 0);
                 noFill();
