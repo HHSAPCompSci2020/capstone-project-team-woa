@@ -30,6 +30,7 @@ public class Grid extends GridTemplate {
     private ArrayList<ArrayList<Float>> lines = new ArrayList<ArrayList<Float>>();
     
     public boolean gameOver = false;
+    public String file;
     
 
     /**
@@ -39,6 +40,7 @@ public class Grid extends GridTemplate {
      */
     public Grid(String filename) {
         super(11, 11, filename);
+        file= filename;
 //        for (int i = 0; i < grid.length; i++) {
 //            for (int j = 0; j < grid[0].length; j++) {
 //                grid2[i][j] = grid[i][j];

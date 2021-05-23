@@ -24,13 +24,19 @@ import processing.core.PImage;
 public class DrawingSurface extends PApplet {
 
     // When you progress to a new prompt, modify this field.
-    private Grid grid = new Grid("maps/test4.txt");
+    private Grid grid = new Grid("maps/test1.txt");;
     private int materials, coins;
     private int time;
     private int gameCond;
-    private GButton start;
+    private GButton map1;
+    private GButton map2;
+    private GButton map3;  
+    private GButton map4;
+    private GButton restart;
+    private GButton playAgain;
     private GLabel coinDisplay;
     private GLabel matDisplay;
+    private GLabel instructions;
     private ArrayList<Wall> initWalls = grid.getWalls();
     private ArrayList<Plant> initPlants = grid.getPlants();
     private PImage insectImage;
@@ -41,18 +47,23 @@ public class DrawingSurface extends PApplet {
 
     public DrawingSurface() {
 
-        grid = new Grid("maps/test4.txt");
-        System.out.println(grid);
         materials = 5;
-        coins = 15;
+        coins = 150;
         time = 0;
         gameCond = 0;
     }
-
+    
     public void setup() {
         coinDisplay = new GLabel(this, 400, 100, 560, 20, "");
-        start = new GButton(this, 400, 60, 100, 40, "Press to Play");
+        map1 = new GButton(this, 100, 100, 100, 40, "");
+        map2 = new GButton(this, 200, 100, 100, 40, "");
+        map3 = new GButton(this, 300, 100, 100, 40, "");
+        map4 = new GButton(this, 400, 100, 100, 40, "");
+        restart = new GButton(this, 400, 60, 100, 40,"");
+        playAgain = new GButton(this, 400, 60, 100, 40,"");
+
         matDisplay = new GLabel(this, 400, 140, 560, 20, "");
+        instructions = new GLabel(this, height/4, height/4, 560, 160, "");
         insectImage = loadImage("Ant.png");
         wallImage = loadImage("Wall.png");
         plantImage = loadImage("Plant.png");
@@ -69,16 +80,39 @@ public class DrawingSurface extends PApplet {
 
         if (gameCond == 0) {
 
-            start.setText("Press to Play");
+            map1.setText("Press to Play Map 1");
+            map2.setText("Press to Play Map 2");
+            map3.setText("Press to Play Map 3");
+            map4.setText("Press to Play Map 4");
+
+            restart.setVisible(false);
+            restart.setEnabled(false);
+            playAgain.setVisible(false);
+            playAgain.setEnabled(false);
+            instructions.setVisible(true);
+            instructions.setText("When you enter, ants will start climbing out of\ntheir hole and try to eat the fruit.\nYour goal is to stop the ants by placing plants and walls.\n Plants damage the ants and walls block the ants.\nPlace or remove plants by right clicking on a location with a wall.\nDo the same for walls but use left click and place on empty locations\nIf the ants eat the fruit you lose.\nYou can still try again, or restart the level\nwhenever you like.");
 
         } else if (gameCond % 2 == 1) {
+
+            restart.setVisible(true);
+            restart.setEnabled(true);
+            instructions.setVisible(false);
+            map1.setVisible(false);
+            map1.setEnabled(false);
+            map2.setVisible(false);
+            map2.setEnabled(false);
+            map3.setVisible(false);
+            map3.setEnabled(false);
+            map4.setVisible(false);
+            map4.setEnabled(false);
+
 
             coinDisplay.setText("Coins: " + coins);
             matDisplay.setText("Materials: " + materials);
             time++;
-            start.setText("Restart");
+            restart.setText("Restart");
 
-            if (time % 30 == 0 && !grid.gameOver) {
+            if (time % 60 == 0 && !grid.gameOver) {
                 grid.act(this);
             }
             // pushStyle();
@@ -129,15 +163,18 @@ public class DrawingSurface extends PApplet {
                 coinDisplay.setText("");
                 matDisplay.setText("");
 
-                this.text("GAME OVER", height / 2, height / 2);
-                start.setText("Play again?");
+                this.text("GAME OVER", height*.75f / 2, height*.75f / 2);
+                restart.setVisible(false);
+                restart.setEnabled(false);
+                playAgain.setEnabled(true);
+                playAgain.setText("Do you want to play again?");
+                playAgain.setVisible(true);
 
             }
 
             // Remove based on preference
             
         } else if (gameCond % 2 == 0) {
-            grid = new Grid("maps/test4.txt");
             coins = 15;
             materials = 5;
             gameCond++;
@@ -232,8 +269,61 @@ public class DrawingSurface extends PApplet {
 
     public void handleButtonEvents(GButton button, GEvent event) {
 
-        gameCond++;
-        time = 0;
+        if(button == map1) {
+            grid = new Grid("maps/test3.txt");
+            initWalls = grid.getWalls();
+            initPlants = grid.getPlants();
+            gameCond++;
+            time = 0;   
+        }
+        else if(button == map2) {
+            grid = new Grid("maps/test4.txt");
+            initWalls = grid.getWalls();
+            initPlants = grid.getPlants();
+            gameCond++;
+            time = 0;
+        }
+        else if(button == map3) {
+            grid = new Grid("maps/test5.txt");
+            initWalls = grid.getWalls();
+            initPlants = grid.getPlants();
+            gameCond++;
+            time = 0;
+        }
+        else if(button == map4) {
+            grid = new Grid("maps/test6.txt");
+            initWalls = grid.getWalls();
+            initPlants = grid.getPlants();
+            gameCond++;
+            time = 0;
+        }
+        else if(button == restart) {
+            grid = new Grid(grid.file);
+            gameCond++;
+            time = 0;
+        }
+        else if(button == playAgain) {
+            gameCond=0;
+            time = 0;
+            coins = 15;
+            materials = 5;
+            map1.setVisible(true);
+            map1.setEnabled(true);
+            map2.setVisible(true);
+            map2.setEnabled(true);
+            map3.setVisible(true);
+            map3.setEnabled(true);
+            map4.setVisible(true);
+            map4.setEnabled(true);
+            
+        }
+       
+        
+        
+        
+        
+        
+        
     }
 
     public boolean hasPlant(ArrayList<Plant> list, Plant o) {
