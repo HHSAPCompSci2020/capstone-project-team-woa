@@ -31,6 +31,7 @@ public class DrawingSurface extends PApplet {
     private GButton start;
     private GLabel coinDisplay;
     private GLabel matDisplay;
+    private GLabel instructions;
     private ArrayList<Wall> initWalls = grid.getWalls();
     private ArrayList<Plant> initPlants = grid.getPlants();
     private PImage insectImage;
@@ -53,11 +54,13 @@ public class DrawingSurface extends PApplet {
         coinDisplay = new GLabel(this, 400, 100, 560, 20, "");
         start = new GButton(this, 400, 60, 100, 40, "Press to Play");
         matDisplay = new GLabel(this, 400, 140, 560, 20, "");
+        instructions = new GLabel(this, height/4, height/4, 560, 160, "");
         insectImage = loadImage("Ant.png");
         wallImage = loadImage("Wall.png");
         plantImage = loadImage("Plant.png");
         holeImage = loadImage("Hole.png");
         fruitImage = loadImage("Fruit1.png");
+        
     }
 
     public void draw() {
@@ -70,9 +73,12 @@ public class DrawingSurface extends PApplet {
         if (gameCond == 0) {
 
             start.setText("Press to Play");
+            instructions.setText("When you enter, ants will start climbing out of\ntheir hole and try to eat the fruit.\nYour goal is to stop the ants by placing plants and walls.\n Plants damage the ants and walls block the ants.\nPlace or remove plants by right clicking on a location with a wall.\nDo the same for walls but use left click and place on empty locations\nIf the ants eat the fruit you lose.\nYou can still try again, or restart the level\nwhenever you like.");
 
         } else if (gameCond % 2 == 1) {
 
+            
+            instructions.setText("");
             coinDisplay.setText("Coins: " + coins);
             matDisplay.setText("Materials: " + materials);
             time++;
@@ -84,15 +90,15 @@ public class DrawingSurface extends PApplet {
             // pushStyle();
             for (int j = 0; j < grid.getInsects().size(); j++) {
                 image(insectImage, height / 11 * .75f * grid.getInsects().get(j).getCol(),
-                        height / 11 * .75f * grid.getInsects().get(j).getRow(), height / 11 * .75f, height / 11 * .75f);
+                        height / 11 * .75f * grid.getInsects().get(j).getRow(), (height+5) / 11 * .75f, (height+5) / 11 * .75f);
             }
             for (int k = 0; k < grid.getPlants().size(); k++) {
                 image(plantImage, height / 11 * .75f * grid.getPlants().get(k).getCol(),
-                        height / 11 * .75f * grid.getPlants().get(k).getRow(), height / 11 * .75f, height / 11 * .75f);
+                        height / 11 * .75f * grid.getPlants().get(k).getRow(), (height+5) / 11 * .75f, (height+5) / 11 * .75f);
             }
             for (int k = 0; k < grid.getWalls().size(); k++) {
                 image(wallImage, height / 11 * .75f * grid.getWalls().get(k).getCol(),
-                        height / 11 * .75f * grid.getWalls().get(k).getRow(), height / 11 * .75f, height / 11 * .75f);
+                        height / 11 * .75f * grid.getWalls().get(k).getRow(), (height+5) / 11 * .75f, (height+5) / 11 * .75f);
             }
             
             image(holeImage, height / 11 * .75f * grid.antHoleCol,
