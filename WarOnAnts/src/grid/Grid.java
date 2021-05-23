@@ -111,7 +111,6 @@ public class Grid extends GridTemplate {
             return false;
         } else {
             if (grid[r][c] == '#') {
-                
                 for (int i = 0; i < walls.size(); i++) {
                     if (walls.get(i).getRow() == r && walls.get(i).getCol() == c) {
                         walls.remove(i);

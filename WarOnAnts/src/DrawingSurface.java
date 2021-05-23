@@ -34,6 +34,9 @@ public class DrawingSurface extends PApplet {
     private GLabel matDisplay;
     private ArrayList<Wall> initWalls = grid.getWalls();
     private ArrayList<Plant> initPlants = grid.getPlants();
+    private ArrayList<PImage> insectImages;
+    private ArrayList<PImage> wallImages;
+    private ArrayList<PImage> plantImages;
 
     public DrawingSurface() {
 
@@ -43,6 +46,9 @@ public class DrawingSurface extends PApplet {
         coins = 15;
         time = 0;
         gameCond = 0;
+        insectImages = new ArrayList<PImage>();
+        wallImages = new ArrayList<PImage>();
+        plantImages = new ArrayList<PImage>();
 
     }
 
@@ -58,23 +64,56 @@ public class DrawingSurface extends PApplet {
         fill(0);
         textAlign(LEFT);
         textSize(12);
-        stroke(255,255,255);
-       
+        stroke(255, 255, 255);
+
         if (gameCond == 0) {
+
             start.setText("Press to Play");
 
         } else if (gameCond % 2 == 1) {
+
             coinDisplay.setText("Coins: " + coins);
             matDisplay.setText("Materials: " + materials);
             time++;
             start.setText("Restart");
             if (time % 30 == 0 && !grid.gameOver) {
                 grid.act(this);
-            }
+                for (int i = 0; i < grid.getInsects().size(); i++) {
+                    PImage image = loadImage("Ant.png");
+                    insectImages.add(image);
+                }
+                for (int k = 0; k < grid.getPlants().size(); k++) {
+                    PImage image = loadImage("Plant.png");
+                    plantImages.add(image);
+                }
+                for (int k = 0; k < grid.getWalls().size(); k++) {
+                    PImage image = loadImage("wall.png");
+                    wallImages.add(image);
+                }
+                
 
+            }
+            pushStyle();
+            for (int j = 0; j < grid.getInsects().size(); j++) {
+                if(insectImages.size() != 0)
+                image(insectImages.get(0), height/11*.75f*grid.getInsects().get(j).getCol(),height/11*.75f*grid.getInsects().get(j).getRow(),  378f/11*.75f, 378f/11*.75f);
+            }
+            for (int k = 0; k < grid.getPlants().size(); k++) {
+                if(plantImages.size() != 0)
+                image(plantImages.get(0), height/11*.75f*grid.getPlants().get(k).getCol(),height/11*.75f*grid.getPlants().get(k).getRow(),  378f/11*.75f, 378f/11*.75f);                
+            }
+            for (int k = 0; k < grid.getWalls().size(); k++) {
+                if(wallImages.size() != 0)
+                image(wallImages.get(0), height/11*.75f*grid.getWalls().get(k).getCol(),height/11*.75f*grid.getWalls().get(k).getRow(),  378f/11*.75f, 378f/11*.75f);                
+            }
+            popStyle();
+           
+            
+            
             if (grid != null && !grid.gameOver) {
 
                 grid.draw(this, 0, 0, height * .75f, height * .75f);
+
             } else if (grid.gameOver) {
                 coinDisplay.setText("");
                 matDisplay.setText("");
@@ -83,11 +122,12 @@ public class DrawingSurface extends PApplet {
                 start.setText("Play again?");
 
             }
+
             // Remove based on preference
             pushStyle();
-            stroke(0,0,0);
+            stroke(0, 0, 0);
             noFill();
-            rect(0,0,height*.75f,height*.75f);
+            rect(0, 0, height * .75f, height * .75f);
             popStyle();
 
         } else if (gameCond % 2 == 0) {
