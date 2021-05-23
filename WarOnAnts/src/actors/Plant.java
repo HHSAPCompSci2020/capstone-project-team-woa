@@ -63,7 +63,7 @@ public class Plant {
             // makes sure the insect does really exist
             while (neighbors.get(randIndex) == null) {
                 randIndex = (int) Math.random() * neighbors.size();
-            }
+             }
             int insectRow = neighbors.get(randIndex).getRow();
             int insectCol = neighbors.get(randIndex).getCol();
 
