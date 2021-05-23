@@ -78,7 +78,7 @@ public class Insect {
     public void act(Fruit f) {
         if (optimalPath != null) {
             if (optimalPath.size() > 1) {
-                System.out.println(optimalPath.toString());
+         //       System.out.println(optimalPath.toString());
                 Point p = optimalPath.get(1);
                 row = p.x;
                 col = p.y;

@@ -149,6 +149,11 @@ public class Grid extends GridTemplate {
                 grid[r][c] = 'P';
                 Wall w = new Wall(r, c);
                 plants.add(new Plant(w));
+                for (int i = 0; i < walls.size(); i++) {
+                    if (walls.get(i).getRow() == r && walls.get(i).getCol() == c) {
+                        walls.remove(i);
+                    }
+                }
                 return true;
 
             }
