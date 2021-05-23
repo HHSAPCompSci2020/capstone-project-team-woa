@@ -41,8 +41,10 @@ public class DrawingSurface extends PApplet {
     private PImage holeImage;
     private PImage fruitImage;
 
+    /**
+     * This is the graphical element that is being drawn on screen.
+     */
     public DrawingSurface() {
-
         grid = new Grid("maps/test4.txt");
         System.out.println(grid);
         materials = 5;
@@ -51,20 +53,28 @@ public class DrawingSurface extends PApplet {
         gameCond = 0;
     }
 
+    /**
+     * The setup method for the graphical element.
+     */
     public void setup() {
         coinDisplay = new GLabel(this, 400, 100, 560, 20, "");
         start = new GButton(this, 400, 60, 100, 40, "Press to Play");
         matDisplay = new GLabel(this, 400, 140, 560, 20, "");
         healthDisplay = new GLabel(this, 400, 180, 560, 20, "");
         instructions = new GLabel(this, height/4, height/4, 560, 160, "");
+        instructions = new GLabel(this, height / 10, height / 10, 560, 160, "");
         insectImage = loadImage("Ant.png");
         wallImage = loadImage("Wall.png");
         plantImage = loadImage("Plant.png");
         holeImage = loadImage("Hole.png");
         fruitImage = loadImage("Fruit1.png");
-        
+
     }
 
+    /**
+     * Draws the current state of the DrawingSurface. Prints instructions, coin
+     * count, material count, etc.
+     */
     public void draw() {
         background(255);
         fill(0);
@@ -75,11 +85,14 @@ public class DrawingSurface extends PApplet {
         if (gameCond == 0) {
 
             start.setText("Press to Play");
-            instructions.setText("When you enter, ants will start climbing out of\ntheir hole and try to eat the fruit.\nYour goal is to stop the ants by placing plants and walls.\n Plants damage the ants and walls block the ants.\nPlace or remove plants by right clicking on a location with a wall.\nDo the same for walls but use left click and place on empty locations\nIf the ants eat the fruit you lose.\nYou can still try again, or restart the level\nwhenever you like.");
+            instructions.setText(
+                    "When you enter, ants will start climbing out of\ntheir hole and try to eat the fruit.\nYour goal is to stop the ants by placing plants and walls.\n Plants damage the ants and walls block the ants.\nPlace or remove plants by right clicking on a location with a wall.\nDo the same for walls but use left click and place on empty locations\nIf the ants eat the fruit you lose.\nYou can still try again, or restart the level\nwhenever you like.");
 
         } else if (gameCond % 2 == 1) {
 
+
             health = grid.getFruit().getHealth();
+
             instructions.setText("");
             coinDisplay.setText("Coins: " + coins);
             matDisplay.setText("Materials: " + materials);
@@ -94,26 +107,29 @@ public class DrawingSurface extends PApplet {
             // pushStyle();
             for (int j = 0; j < grid.getInsects().size(); j++) {
                 image(insectImage, height / 11 * .75f * grid.getInsects().get(j).getCol(),
-                        height / 11 * .75f * grid.getInsects().get(j).getRow(), (height+5) / 11 * .75f, (height+5) / 11 * .75f);
+                        height / 11 * .75f * grid.getInsects().get(j).getRow(), (height + 5) / 11 * .75f,
+                        (height + 5) / 11 * .75f);
             }
             for (int k = 0; k < grid.getPlants().size(); k++) {
                 image(plantImage, height / 11 * .75f * grid.getPlants().get(k).getCol(),
-                        height / 11 * .75f * grid.getPlants().get(k).getRow(), (height+5) / 11 * .75f, (height+5) / 11 * .75f);
+                        height / 11 * .75f * grid.getPlants().get(k).getRow(), (height + 5) / 11 * .75f,
+                        (height + 5) / 11 * .75f);
             }
             for (int k = 0; k < grid.getWalls().size(); k++) {
                 image(wallImage, height / 11 * .75f * grid.getWalls().get(k).getCol(),
-                        height / 11 * .75f * grid.getWalls().get(k).getRow(), (height+5) / 11 * .75f, (height+5) / 11 * .75f);
+                        height / 11 * .75f * grid.getWalls().get(k).getRow(), (height + 5) / 11 * .75f,
+                        (height + 5) / 11 * .75f);
             }
-            
-            image(holeImage, height / 11 * .75f * grid.antHoleCol,
-                    height / 11 * .75f * grid.antHoleRow, height / 11 * .75f, height / 11 * .75f);
-            
+
+            image(holeImage, height / 11 * .75f * grid.antHoleCol, height / 11 * .75f * grid.antHoleRow,
+                    height / 11 * .75f, height / 11 * .75f);
+
             image(fruitImage, height / 11 * .75f * grid.getFruit().getCol(),
                     height / 11 * .75f * grid.getFruit().getRow(), height / 11 * .75f, height / 11 * .75f);
             // popStyle();
 
             if (grid != null && !grid.gameOver) {
-                
+
 //                for (ArrayList<Float> line : lines) {
 //                    marker.pushStyle();
 //                    marker.stroke(55,175,255);
@@ -121,19 +137,18 @@ public class DrawingSurface extends PApplet {
 //                    marker.popStyle();
 //
 //                }
-                
+
                 grid.draw(this, 0, 0, height * .75f, height * .75f);
                 for (int j = 0; j < grid.getInsects().size(); j++) {
                     image(insectImage, height / 11 * .75f * grid.getInsects().get(j).getCol(),
-                            height / 11 * .75f * grid.getInsects().get(j).getRow(), height / 11 * .75f, height / 11 * .75f);
+                            height / 11 * .75f * grid.getInsects().get(j).getRow(), height / 11 * .75f,
+                            height / 11 * .75f);
                 }
                 pushStyle();
                 stroke(0, 0, 0);
                 noFill();
                 rect(0, 0, height * .75f, height * .75f);
                 popStyle();
-                
-
 
             } else if (grid.gameOver) {
                 coinDisplay.setText("");
@@ -144,7 +159,7 @@ public class DrawingSurface extends PApplet {
             }
 
             // Remove based on preference
-            
+
         } else if (gameCond % 2 == 0) {
             grid = new Grid("maps/test4.txt");
             coins = 15;
@@ -153,11 +168,17 @@ public class DrawingSurface extends PApplet {
         }
 
     }
-    
+
+    /**
+     * Mutator method for the private field coins.
+     */
     public void addCoin() {
         coins++;
     }
 
+    /**
+     * Handles the mouse inputs.
+     */
     public void mousePressed() {
         Point click = new Point(mouseX, mouseY);
         float dimension = height * .75f;
