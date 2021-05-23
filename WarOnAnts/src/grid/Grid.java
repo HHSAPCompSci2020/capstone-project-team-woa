@@ -19,7 +19,7 @@ import template.GridTemplate;
  */
 public class Grid extends GridTemplate {
 
-    private char[][] grid2 = new char[20][20];
+ //   private char[][] grid2 = new char[20][20];
 
     private ArrayList<Insect> insects = new ArrayList<Insect>();
     private ArrayList<Plant> plants = new ArrayList<Plant>();
@@ -39,11 +39,11 @@ public class Grid extends GridTemplate {
      */
     public Grid(String filename) {
         super(11, 11, filename);
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                grid2[i][j] = grid[i][j];
-            }
-        }
+//        for (int i = 0; i < grid.length; i++) {
+//            for (int j = 0; j < grid[0].length; j++) {
+//                grid2[i][j] = grid[i][j];
+//            }
+//        }
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == 'I') {
@@ -107,7 +107,7 @@ public class Grid extends GridTemplate {
      * @param c column of the location to be toggled
      */
     public boolean toggleWall(int r, int c) {
-        if (r > 11 || r < 0 || c > 11 || c < 0) {
+        if (r > 10 || r < 0 || c > 10 || c < 0) {
             return false;
         } else {
             if (grid[r][c] == '#') {
@@ -192,7 +192,7 @@ public class Grid extends GridTemplate {
      */
     public Object get(int r, int c) {
 
-        if (r > 11 || r < 0 || c > 11 || c < 0) {
+        if (r > 10 || r < 0 || c > 10 || c < 0) {
             return new Object();
         } else {
             if (grid[r][c] == 'I') {
@@ -316,29 +316,29 @@ public class Grid extends GridTemplate {
         return walls;
     }
 
-    public int getTrueWidth() {
-        int count = 0;
-        for (int c = 0; c < grid2[0].length; c++) {
-            if (grid2[0][c] == 0) {
-                break;
-            }
-            count++;
-        }
-
-        return count;
-    }
-
-    public int getTrueHeight() {
-        int count = 0;
-        for (int r = 0; r < grid2.length; r++) {
-            if (grid2[r][0] == 0) {
-                break;
-            }
-            count++;
-        }
-
-        return count;
-    }
+//    public int getTrueWidth() {
+//        int count = 0;
+//        for (int c = 0; c < grid2[0].length; c++) {
+//            if (grid2[0][c] == 0) {
+//                break;
+//            }
+//            count++;
+//        }
+//
+//        return count;
+//    }
+//
+//    public int getTrueHeight() {
+//        int count = 0;
+//        for (int r = 0; r < grid2.length; r++) {
+//            if (grid2[r][0] == 0) {
+//                break;
+//            }
+//            count++;
+//        }
+//
+//        return count;
+//    }
     
     public void draw(PApplet marker, float x, float y, float width, float height) {
         super.draw(marker, x, y, width, height);

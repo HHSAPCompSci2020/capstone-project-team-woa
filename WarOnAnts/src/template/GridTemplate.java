@@ -20,7 +20,7 @@ public abstract class GridTemplate {
      * Construct an empty 2D array with some default dimensions.
      */
     public GridTemplate() {
-        grid = new char[12][9];
+        grid = new char[11][11];
     }
 
     /**

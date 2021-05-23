@@ -30,7 +30,7 @@ public class Plant {
         home = wall;
         range = 1;
         damageDealt = 10;
-        blockWidth = 378 / 11 * .75f;
+        blockWidth = 550 / 11 * .75f;
 
     }
 
@@ -68,17 +68,17 @@ public class Plant {
             int insectCol = neighbors.get(randIndex).getCol();
 
             // Draw a line from the plant to the insect
-            marker.line(getCol() * blockWidth + blockWidth / 2, getRow() * blockWidth + blockWidth / 2,
-                    insectCol * blockWidth + blockWidth / 2, insectRow * blockWidth + blockWidth / 2);
+            marker.line(getCol() * blockWidth + blockWidth / 4, getRow() * blockWidth + blockWidth / 4,
+                    insectCol * blockWidth + blockWidth / 4, insectRow * blockWidth + blockWidth / 4);
 
             // Does damage to the insect
             neighbors.get(randIndex).takeDamage(damageDealt);
 
             ArrayList<Float> line = new ArrayList<>();
-            line.add(getCol() * blockWidth + blockWidth / 2);
-            line.add(getRow() * blockWidth + blockWidth / 2);
-            line.add(insectCol * blockWidth + blockWidth / 2);
-            line.add(insectRow * blockWidth + blockWidth / 2);
+            line.add(getCol() * blockWidth + blockWidth / 4);
+            line.add(getRow() * blockWidth + blockWidth / 4);
+            line.add(insectCol * blockWidth + blockWidth / 4);
+            line.add(insectRow * blockWidth + blockWidth / 4);
 
             return line;
         }

@@ -11,7 +11,6 @@ import g4p_controls.GButton;
 import g4p_controls.GEvent;
 import g4p_controls.GLabel;
 import grid.Grid;
-import template.GridTemplate;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -49,9 +48,9 @@ public class DrawingSurface extends PApplet {
     }
 
     public void setup() {
-        coinDisplay = new GLabel(this, 300, 100, 560, 20, "");
-        start = new GButton(this, 300, 60, 100, 40, "Press to Play");
-        matDisplay = new GLabel(this, 300, 140, 560, 20, "");
+        coinDisplay = new GLabel(this, 400, 100, 560, 20, "");
+        start = new GButton(this, 400, 60, 100, 40, "Press to Play");
+        matDisplay = new GLabel(this, 400, 140, 560, 20, "");
         insectImage = loadImage("Ant.png");
         wallImage = loadImage("Wall.png");
         plantImage = loadImage("Plant.png");
@@ -81,15 +80,15 @@ public class DrawingSurface extends PApplet {
             // pushStyle();
             for (int j = 0; j < grid.getInsects().size(); j++) {
                 image(insectImage, height / 11 * .75f * grid.getInsects().get(j).getCol(),
-                        height / 11 * .75f * grid.getInsects().get(j).getRow(), 378f / 11 * .75f, 378f / 11 * .75f);
+                        height / 11 * .75f * grid.getInsects().get(j).getRow(), height / 11 * .75f, height / 11 * .75f);
             }
             for (int k = 0; k < grid.getPlants().size(); k++) {
                 image(plantImage, height / 11 * .75f * grid.getPlants().get(k).getCol(),
-                        height / 11 * .75f * grid.getPlants().get(k).getRow(), 378f / 11 * .75f, 378f / 11 * .75f);
+                        height / 11 * .75f * grid.getPlants().get(k).getRow(), height / 11 * .75f, height / 11 * .75f);
             }
             for (int k = 0; k < grid.getWalls().size(); k++) {
                 image(wallImage, height / 11 * .75f * grid.getWalls().get(k).getCol(),
-                        height / 11 * .75f * grid.getWalls().get(k).getRow(), 378f / 11 * .75f, 378f / 11 * .75f);
+                        height / 11 * .75f * grid.getWalls().get(k).getRow(), height / 11 * .75f, height / 11 * .75f);
             }
             // popStyle();
 
@@ -117,7 +116,7 @@ public class DrawingSurface extends PApplet {
                 coinDisplay.setText("");
                 matDisplay.setText("");
 
-                this.text("GAME OVER", 100, 100);
+                this.text("GAME OVER", height / 2, height / 2);
                 start.setText("Play again?");
 
             }
@@ -182,7 +181,7 @@ public class DrawingSurface extends PApplet {
 
         {
             if (cellCoord != null && coins >= 0) {
-                if (coins != 0) {
+                if (coins >= 10) {
                     if (grid.togglePlant(cellCoord.x, cellCoord.y)) {
                         coins -= 10;
 
