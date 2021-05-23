@@ -19,7 +19,7 @@ import template.GridTemplate;
  */
 public class Grid extends GridTemplate {
 
- //   private char[][] grid2 = new char[20][20];
+    // private char[][] grid2 = new char[20][20];
 
     private ArrayList<Insect> insects = new ArrayList<Insect>();
     private ArrayList<Plant> plants = new ArrayList<Plant>();
@@ -28,9 +28,8 @@ public class Grid extends GridTemplate {
     public int antHoleRow;
     public int antHoleCol;
     private ArrayList<ArrayList<Float>> lines = new ArrayList<ArrayList<Float>>();
-    
+
     public boolean gameOver = false;
-    
 
     /**
      * Creates a Grid object and copies the information from the file given.
@@ -144,7 +143,7 @@ public class Grid extends GridTemplate {
                     }
                 }
                 grid[r][c] = '#';
-                walls.add(new Wall(r,c));
+                walls.add(new Wall(r, c));
             } else if (grid[r][c] == '#') {
                 grid[r][c] = 'P';
                 Wall w = new Wall(r, c);
@@ -227,7 +226,7 @@ public class Grid extends GridTemplate {
     /**
      * Starts and continues to run the program
      */
-    public void act(PApplet marker) {
+    public void step(PApplet marker) {
 
         if (insects != null) {
             for (Insect i : insects) {
@@ -246,28 +245,43 @@ public class Grid extends GridTemplate {
 
             // Remove dead insects whose health is non-positive.
             insects.removeAll(dead);
+            for (Insect i : dead) {
+                grid[i.getRow()][i.getCol()] = '.';
+            }
         }
 
         if (plants != null) {
             lines.clear();
             for (Plant p : plants) {
-                ArrayList<Float> line = p.act(marker, insects);
-                if (line != null) {
-                    lines.add(line);
+                ArrayList<Insect> neighbors = new ArrayList<Insect>();
+                int range = p.getRange();
+                for (int r = p.getRow() - range; r < p.getRow() + range + 1; r++) {
+                    for (int c = p.getCol() - range; c < p.getCol() + range + 1; c++) {
+                        if (grid[r][c] == 'I') {
+                            for (int i = 0; i < insects.size(); i++) {
+                                if (insects.get(i).getRow() == r && insects.get(i).getCol() == c) 
+                                    neighbors.add(insects.get(i));
+                            }
+                        }
+                    }
+                }
+
+                if (neighbors.size() != 0) {
+                    // Calculate the index of a random insect and calculate its location
+                    int randIndex = (int) (Math.random() * neighbors.size());
+
+                    // makes sure the insect does really exist
+                    while (neighbors.get(randIndex) == null) {
+                        randIndex = (int) (Math.random() * neighbors.size());
+                    }
+
+                    ArrayList<Float> line = p.act(marker, neighbors.get(randIndex));
+                    if (line != null) {
+                        lines.add(line);
+                    }
+                    neighbors.get(randIndex).takeDamage(p.getDamage());
                 }
             }
-        }
-
-        if (insects != null) {
-            ArrayList<Insect> dead = new ArrayList<>();
-            for (Insect i : insects) {
-                if (i.getHealth() <= 0) {
-                    dead.add(i);
-                }
-            }
-
-            // Remove dead insects whose health is non-positive.
-            insects.removeAll(dead);
         }
 
         if (fruit.getHealth() <= 0) {
@@ -304,6 +318,28 @@ public class Grid extends GridTemplate {
 
     }
 
+    public void act(PApplet marker) {
+
+        if (insects != null) {
+            ArrayList<Insect> dead = new ArrayList<>();
+
+            insects.sort(new SortByLength());
+            for (Insect i : insects) {
+                i.act(fruit);
+                if (i.getHealth() <= 0) {
+                    dead.add(i);
+                }
+            }
+
+            // Remove dead insects whose health is non-positive.
+            insects.removeAll(dead);
+            for (Insect i : dead) {
+                grid[i.getRow()][i.getCol()] = '.';
+            }
+        }
+
+    }
+
     public ArrayList<Insect> getInsects() {
         return insects;
     }
@@ -315,40 +351,16 @@ public class Grid extends GridTemplate {
     public ArrayList<Wall> getWalls() {
         return walls;
     }
-    
+
     public Fruit getFruit() {
         return fruit;
     }
 
-//    public int getTrueWidth() {
-//        int count = 0;
-//        for (int c = 0; c < grid2[0].length; c++) {
-//            if (grid2[0][c] == 0) {
-//                break;
-//            }
-//            count++;
-//        }
-//
-//        return count;
-//    }
-//
-//    public int getTrueHeight() {
-//        int count = 0;
-//        for (int r = 0; r < grid2.length; r++) {
-//            if (grid2[r][0] == 0) {
-//                break;
-//            }
-//            count++;
-//        }
-//
-//        return count;
-//    }
-    
     public void draw(PApplet marker, float x, float y, float width, float height) {
         super.draw(marker, x, y, width, height);
         for (ArrayList<Float> line : lines) {
             marker.pushStyle();
-            marker.stroke(55,175,255);
+            marker.stroke(55, 175, 255);
             marker.line(line.get(0), line.get(1), line.get(2), line.get(3));
             marker.popStyle();
 

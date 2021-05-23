@@ -78,10 +78,13 @@ public class DrawingSurface extends PApplet {
             time++;
             start.setText("Restart");
 
+            grid.act(this);
+
             if (time % 30 == 0 && !grid.gameOver) {
-                grid.act(this);
+                grid.step(this);
             }
-            // pushStyle();
+
+            pushStyle();
             for (int j = 0; j < grid.getInsects().size(); j++) {
                 image(insectImage, height / 11 * .75f * grid.getInsects().get(j).getCol(),
                         height / 11 * .75f * grid.getInsects().get(j).getRow(), height / 11 * .75f, height / 11 * .75f);
@@ -94,16 +97,16 @@ public class DrawingSurface extends PApplet {
                 image(wallImage, height / 11 * .75f * grid.getWalls().get(k).getCol(),
                         height / 11 * .75f * grid.getWalls().get(k).getRow(), height / 11 * .75f, height / 11 * .75f);
             }
-            
-            image(holeImage, height / 11 * .75f * grid.antHoleCol,
-                    height / 11 * .75f * grid.antHoleRow, height / 11 * .75f, height / 11 * .75f);
-            
+
+            image(holeImage, height / 11 * .75f * grid.antHoleCol, height / 11 * .75f * grid.antHoleRow,
+                    height / 11 * .75f, height / 11 * .75f);
+
             image(fruitImage, height / 11 * .75f * grid.getFruit().getCol(),
                     height / 11 * .75f * grid.getFruit().getRow(), height / 11 * .75f, height / 11 * .75f);
-            // popStyle();
+            popStyle();
 
             if (grid != null && !grid.gameOver) {
-                
+
 //                for (ArrayList<Float> line : lines) {
 //                    marker.pushStyle();
 //                    marker.stroke(55,175,255);
@@ -111,19 +114,18 @@ public class DrawingSurface extends PApplet {
 //                    marker.popStyle();
 //
 //                }
-                
+
                 grid.draw(this, 0, 0, height * .75f, height * .75f);
                 for (int j = 0; j < grid.getInsects().size(); j++) {
                     image(insectImage, height / 11 * .75f * grid.getInsects().get(j).getCol(),
-                            height / 11 * .75f * grid.getInsects().get(j).getRow(), height / 11 * .75f, height / 11 * .75f);
+                            height / 11 * .75f * grid.getInsects().get(j).getRow(), height / 11 * .75f,
+                            height / 11 * .75f);
                 }
                 pushStyle();
                 stroke(0, 0, 0);
                 noFill();
                 rect(0, 0, height * .75f, height * .75f);
                 popStyle();
-                
-
 
             } else if (grid.gameOver) {
                 coinDisplay.setText("");
@@ -135,7 +137,7 @@ public class DrawingSurface extends PApplet {
             }
 
             // Remove based on preference
-            
+
         } else if (gameCond % 2 == 0) {
             grid = new Grid("maps/test4.txt");
             coins = 15;

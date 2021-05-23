@@ -64,8 +64,8 @@ public abstract class GridTemplate {
      * @param height The pixel height of the grid drawing.
      */
     public void draw(PApplet marker, float x, float y, float width, float height) {
-       // marker.noFill();
-
+//        marker.noFill();
+//
 //        for (int i = 0; i < grid.length; i++) {
 //            for (int j = 0; j < grid[0].length; j++) {
 //

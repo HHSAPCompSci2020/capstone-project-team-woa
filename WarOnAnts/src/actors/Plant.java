@@ -41,44 +41,21 @@ public class Plant {
      * @param marker  The PApplet that draws the beam
      * @param insects The insects that are in the grid
      */
-    public ArrayList<Float> shoot(PApplet marker, ArrayList<Insect> insects) {
-        // Find neighboring insects
-        ArrayList<Insect> neighbors = new ArrayList<Insect>();
-
-        for (int r = getRow() - range; r < getRow() + range + 1; r++) {
-            for (int c = getCol() - range; c < getCol() + range + 1; c++) {
-                if (returnInsect(r, c, insects) != null) {
-                    neighbors.add(returnInsect(r, c, insects));
-                }
-
-            }
-        }
-
-        if (neighbors.size() != 0)
-
-        {
-            // Calculate the index of a random insect and calculate its location
-            int randIndex = (int) (Math.random() * neighbors.size());
-
-            // makes sure the insect does really exist
-            while (neighbors.get(randIndex) == null) {
-                randIndex = (int) Math.random() * neighbors.size();
-            }
-            int insectRow = neighbors.get(randIndex).getRow();
-            int insectCol = neighbors.get(randIndex).getCol();
+    public ArrayList<Float> shoot(PApplet marker, Insect insect) {
+        if (insect != null) {
 
             // Draw a line from the plant to the insect
-            marker.line(getCol() * blockWidth + blockWidth / 4, getRow() * blockWidth + blockWidth / 4,
-                    insectCol * blockWidth + blockWidth / 4, insectRow * blockWidth + blockWidth / 4);
+//            marker.line(getCol() * blockWidth + blockWidth / 4, getRow() * blockWidth + blockWidth / 4,
+//                    insectCol * blockWidth + blockWidth / 4, insectRow * blockWidth + blockWidth / 4);
 
             // Does damage to the insect
-            neighbors.get(randIndex).takeDamage(damageDealt);
+     //       neighbors.get(randIndex).takeDamage(damageDealt);
 
             ArrayList<Float> line = new ArrayList<>();
             line.add(getCol() * blockWidth + blockWidth / 4);
             line.add(getRow() * blockWidth + blockWidth / 4);
-            line.add(insectCol * blockWidth + blockWidth / 4);
-            line.add(insectRow * blockWidth + blockWidth / 4);
+            line.add(insect.getCol() * blockWidth + blockWidth / 4);
+            line.add(insect.getRow() * blockWidth + blockWidth / 4);
 
             return line;
         }
@@ -93,37 +70,8 @@ public class Plant {
      * @param insects The insects that are in the grid
      * @return        The list of lines to be drawn
      */
-    public ArrayList<Float> act(PApplet m, ArrayList<Insect> insects) {
-        if (hasNeighbor(insects)) {
-
-            return (shoot(m, insects));
-        }
-        return null;
-    }
-
-    /**
-     * Checks if there is at least one insect in the plant's range
-     * 
-     * @param insects The insects that are in the grid
-     * @return Returns true if there is at least one insect in range, false
-     *         otherwise
-     */
-    public boolean hasNeighbor(ArrayList<Insect> insects) {
-        if (insects.size() == 0) {
-            return false;
-        }
-        ArrayList<Insect> neighbors = new ArrayList<Insect>();
-        for (int r = getRow() - range; r < getRow() + range + 1; r++) {
-            for (int c = getCol() - range; c < getCol() + range + 1; c++) {
-                if (r != getRow() && c != getCol())
-                    neighbors.add(returnInsect(r, c, insects));
-
-            }
-        }
-        if (neighbors.size() > 0) {
-            return true;
-        }
-        return false;
+    public ArrayList<Float> act(PApplet m, Insect insect) {
+        return (shoot(m, insect));
     }
 
     /**
@@ -162,6 +110,10 @@ public class Plant {
      */
     public int getCol() {
         return home.getCol();
+    }
+    
+    public int getDamage() {
+        return damageDealt;
     }
 
     /**
