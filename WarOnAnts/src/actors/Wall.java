@@ -23,8 +23,6 @@ public class Wall {
     }
 
     /**
-     * Returns the row of this wall in the grid
-     * 
      * @return the row of this wall
      */
     public int getRow() {
@@ -32,8 +30,6 @@ public class Wall {
     }
 
     /**
-     * Returns the column of this wall in the grid
-     * 
      * @return the column of this wall
      */
     public int getCol() {

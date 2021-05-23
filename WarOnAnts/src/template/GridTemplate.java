@@ -64,34 +64,7 @@ public abstract class GridTemplate {
      * @param height The pixel height of the grid drawing.
      */
     public void draw(PApplet marker, float x, float y, float width, float height) {
-       // marker.noFill();
-
-//        for (int i = 0; i < grid.length; i++) {
-//            for (int j = 0; j < grid[0].length; j++) {
-//
-//                float rectWidth = width / grid[0].length;
-//                float rectHeight = height / grid.length;
-//                float rectX = x + j * rectWidth;
-//                float rectY = y + i * rectHeight;
-//
-//                marker.text(grid[i][j], rectX + 4, rectY + 13);
-//                marker.rect(rectX, rectY, rectWidth, rectHeight);
-//                if (grid[i][j] == '*' || grid[i][j] == '#') {
-//                    marker.fill(110);
-//                    marker.rect(rectX, rectY, rectWidth, rectHeight);
-//                    marker.noFill();
-//                } else if (grid[i][j] == '!') {
-//                    marker.fill(60);
-//                    marker.rect(rectX, rectY, rectWidth, rectHeight);
-//                    marker.noFill();
-//                } else if (grid[i][j] == 'X') {
-//                    marker.text(grid[i][j], rectX, rectY);
-//                    marker.rect(rectX, rectY, rectWidth, rectHeight);
-//                } else {
-//                    marker.rect(rectX, rectY, rectWidth, rectHeight);
-//                }
-//            }
-//        }
+       
     }
 
     /**
@@ -122,6 +95,12 @@ public abstract class GridTemplate {
         return coordinate;
     }
 
+    /**
+     * Reads the data from a txt file and copies it down to gameData.
+     * 
+     * @param filename the file name of the txt file being read.
+     * @param gameData the grid that the txt file is being copied to. 
+     */
     public void readData(String filename, char[][] gameData) {
         File dataFile = new File(filename);
 

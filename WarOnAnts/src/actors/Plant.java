@@ -138,8 +138,6 @@ public class Plant {
     }
 
     /**
-     * Returns the range of this plant
-     * 
      * @return the range of this plant
      */
     public int getRange() {
@@ -147,8 +145,6 @@ public class Plant {
     }
 
     /**
-     * Returns the row of this plant in the grid
-     * 
      * @return the row of this plant
      */
     public int getRow() {
@@ -156,8 +152,6 @@ public class Plant {
     }
 
     /**
-     * Returns the column of this plant in the grid
-     * 
      * @return the column of this plant
      */
     public int getCol() {

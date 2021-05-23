@@ -18,9 +18,8 @@ public class Insect {
     private int health;
 
     /**
-     * 
-     * @param r row of the Insect
-     * @param c column of the Insect
+     * @param r    The row of the Insect
+     * @param c    The column of the Insect
      * @param grid grid
      */
     public Insect(int r, int c, char[][] grid) {
@@ -33,8 +32,8 @@ public class Insect {
     /**
      * Finds and returns the shortest path from the input location to the fruit.
      * 
-     * @param r row of the location
-     * @param c column of the location
+     * @param r    row of the location
+     * @param c    column of the location
      * @param grid grid
      * @return returns the points which the insect must take to get to the fruit
      *         fastest
@@ -45,44 +44,49 @@ public class Insect {
     }
 
     /**
-     * 
-     * @return returns the row of the insect
+     * @return The row of insect
      */
     public int getRow() {
         return row;
     }
-    
-    public int getHealth() {
-        return health;
-    }
-    
+
     /**
      * 
-     * @return returns the column of the insect
+     * @return The column of insect
      */
     public int getCol() {
         return col;
     }
-    
+
+    /**
+     * @return The health of insect
+     */
+    public int getHealth() {
+        return health;
+    }
+
+    /**
+     * @return The length of optimalPath.
+     */
     public int getPathLen() {
         if (optimalPath == null) {
             return Integer.MAX_VALUE;
         }
         return optimalPath.size();
     }
-    
+
     /**
-     * Makes the insect take a step forward if it isn't blocked from the fruit. 
-     * Does nothing if it is blocked from the fruit. 
+     * Makes the insect take a step forward if it isn't blocked from the fruit. Does
+     * nothing if it is blocked from the fruit.
      */
     public void act(Fruit f) {
         if (optimalPath != null) {
             if (optimalPath.size() > 1) {
-         //       System.out.println(optimalPath.toString());
+                // System.out.println(optimalPath.toString());
                 Point p = optimalPath.get(1);
                 row = p.x;
                 col = p.y;
-                grid[row][col] = 'I';                
+                grid[row][col] = 'I';
             } else {
                 System.out.println("Eat " + health);
                 f.takeDamage(health);
@@ -92,7 +96,7 @@ public class Insect {
             grid[row][col] = 'I';
         }
     }
-    
+
     /**
      * 
      * @param dmg the damage given to the insect.
@@ -100,12 +104,15 @@ public class Insect {
     public void takeDamage(int dmg) {
         health -= dmg;
     }
-    
+
+    /**
+     * @param r Row of the location
+     * @param c Column of the location
+     * @return Whether or not the location (r,c) is touching the insect's current location
+     */
     public boolean isTouching(int r, int c) {
-        return (r - 1 == row && c == col) ||
-                (r + 1 == row && c == col) ||
-                (r == row && c == col - 1) ||
-                (r == row && c == col + 1);
+        return (r - 1 == row && c == col) || (r + 1 == row && c == col) || (r == row && c == col - 1)
+                || (r == row && c == col + 1);
     }
 
     private ArrayList<Point> findNext(int x, int y, char[][] grid) {

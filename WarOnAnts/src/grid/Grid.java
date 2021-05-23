@@ -38,11 +38,6 @@ public class Grid extends GridTemplate {
      */
     public Grid(String filename) {
         super(11, 11, filename);
-//        for (int i = 0; i < grid.length; i++) {
-//            for (int j = 0; j < grid[0].length; j++) {
-//                grid2[i][j] = grid[i][j];
-//            }
-//        }
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == 'I') {
@@ -224,7 +219,9 @@ public class Grid extends GridTemplate {
     }
 
     /**
-     * Starts and continues to run the program
+     * This method calls the act method of all Insect and Plant objects in the grid.
+     * @param marker the PApplet object the graphics are being drawn on.
+     * @return the number of Insects that are died in this iteration. 
      */
     public int act(PApplet marker) {
 
@@ -294,46 +291,43 @@ public class Grid extends GridTemplate {
         return result;
     }
 
+    /**
+     * @return the ArrayList of Insects in this grid
+     */
     public ArrayList<Insect> getInsects() {
         return insects;
     }
-
+    
+    /**
+     * @return the ArrayList of Plants in this grid
+     */
     public ArrayList<Plant> getPlants() {
         return plants;
     }
 
+    /**
+     * @return the ArrayList of Walls in this grid
+     */
     public ArrayList<Wall> getWalls() {
         return walls;
     }
 
+    /**
+     * @return the Fruit in this grid
+     */
     public Fruit getFruit() {
         return fruit;
     }
 
-//    public int getTrueWidth() {
-//        int count = 0;
-//        for (int c = 0; c < grid2[0].length; c++) {
-//            if (grid2[0][c] == 0) {
-//                break;
-//            }
-//            count++;
-//        }
-//
-//        return count;
-//    }
-//
-//    public int getTrueHeight() {
-//        int count = 0;
-//        for (int r = 0; r < grid2.length; r++) {
-//            if (grid2[r][0] == 0) {
-//                break;
-//            }
-//            count++;
-//        }
-//
-//        return count;
-//    }
-
+    /**
+     * (Graphical UI) Draws the Plants' shoot method. 
+     * 
+     * @param marker The PApplet used for drawing.
+     * @param x      The x pixel coordinate of the upper left corner of the grid drawing.
+     * @param y      The y pixel coordinate of the upper left corner of the grid drawing.
+     * @param width  The pixel width of the grid drawing.
+     * @param height The pixel height of the grid drawing.
+     */
     public void draw(PApplet marker, float x, float y, float width, float height) {
         super.draw(marker, x, y, width, height);
         for (ArrayList<Float> line : lines) {

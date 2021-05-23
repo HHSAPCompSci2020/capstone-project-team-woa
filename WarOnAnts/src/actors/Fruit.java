@@ -31,27 +31,26 @@ public class Fruit {
      */
     public void takeDamage(int damage) {
         health -= damage;
-        if (health <= 0) {
-            die();
-        }
     }
 
+    /**
+     * @return The row of the Fruit.
+     */
     public int getRow() {
         return row;
     }
 
+    /**
+     * @return The column of the Fruit.
+     */
     public int getCol() {
         return col;
     }
 
+    /**
+     * @return The health of the Fruit.
+     */
     public int getHealth() {
         return health;
-    }
-
-    /**
-     * Kills the plant and removes it from the grid
-     */
-    public void die() {
-
     }
 }

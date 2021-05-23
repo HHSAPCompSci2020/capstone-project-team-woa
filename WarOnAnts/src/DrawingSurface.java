@@ -264,12 +264,22 @@ public class DrawingSurface extends PApplet {
 
     }
 
+    /**
+     * Handles when the player clicks on a button.
+     * @param button The GButton that is being interacted with.
+     * @param event The interaction.
+     */
     public void handleButtonEvents(GButton button, GEvent event) {
 
         gameCond++;
         time = 0;
     }
 
+    /**
+     * @param list List of plants
+     * @param o The plant the user is looking for.
+     * @return Returns whether or not plant `o` is in the list of plants `list`.
+     */
     public boolean hasPlant(ArrayList<Plant> list, Plant o) {
         for (Plant p : list) {
             if (p.getCol() == o.getCol() && p.getRow() == o.getRow()) {
@@ -280,6 +290,11 @@ public class DrawingSurface extends PApplet {
         return false;
     }
 
+    /**
+     * @param list List of walls.
+     * @param o The wall the user is looking for.
+     * @return Returns whether or not wall `o` is in the list of walls `list`.
+     */
     public boolean hasWall(ArrayList<Wall> list, Wall o) {
         for (Wall w : list) {
             if (w.getCol() == o.getCol() && w.getRow() == o.getRow()) {
