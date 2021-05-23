@@ -34,9 +34,9 @@ public class DrawingSurface extends PApplet {
     private GLabel matDisplay;
     private ArrayList<Wall> initWalls = grid.getWalls();
     private ArrayList<Plant> initPlants = grid.getPlants();
-    private ArrayList<PImage> insectImages;
-    private ArrayList<PImage> wallImages;
-    private ArrayList<PImage> plantImages;
+    private PImage insectImage;
+    private PImage wallImage;
+    private PImage plantImage;
 
     public DrawingSurface() {
 
@@ -46,17 +46,15 @@ public class DrawingSurface extends PApplet {
         coins = 15;
         time = 0;
         gameCond = 0;
-        insectImages = new ArrayList<PImage>();
-        wallImages = new ArrayList<PImage>();
-        plantImages = new ArrayList<PImage>();
-
     }
 
     public void setup() {
         coinDisplay = new GLabel(this, 300, 100, 560, 20, "");
         start = new GButton(this, 300, 60, 100, 40, "Press to Play");
         matDisplay = new GLabel(this, 300, 140, 560, 20, "");
-
+        insectImage = loadImage("Ant.png");
+        wallImage = loadImage("Wall.png");
+        plantImage = loadImage("Plant.png");
     }
 
     public void draw() {
@@ -76,34 +74,25 @@ public class DrawingSurface extends PApplet {
             matDisplay.setText("Materials: " + materials);
             time++;
             start.setText("Restart");
-            if (time % 3 == 0 && !grid.gameOver) {
-                grid.act(this);  
-                insectImages.clear();
 
-                plantImages.clear();
-
-                wallImages.clear();
-                for (int i = 0; i < grid.getInsects().size(); i++) {
-                    PImage image = loadImage("Ant.png");
-                    insectImages.add(image);
-                }
-                for (int k = 0; k < grid.getPlants().size(); k++) {
-
-                    PImage image = loadImage("Plant.png");
-                    plantImages.add(image);
-                }
-                for (int k = 0; k < grid.getWalls().size(); k++) {
-                    
-                    PImage image = loadImage("wall.png");
-                    wallImages.add(image);
-                }
+            if (time % 30 == 0 && !grid.gameOver) {
+                grid.act(this);
             }
-            
-           
-            
-           
-           
-            
+            // pushStyle();
+            for (int j = 0; j < grid.getInsects().size(); j++) {
+                image(insectImage, height / 11 * .75f * grid.getInsects().get(j).getCol(),
+                        height / 11 * .75f * grid.getInsects().get(j).getRow(), 378f / 11 * .75f, 378f / 11 * .75f);
+            }
+            for (int k = 0; k < grid.getPlants().size(); k++) {
+                image(plantImage, height / 11 * .75f * grid.getPlants().get(k).getCol(),
+                        height / 11 * .75f * grid.getPlants().get(k).getRow(), 378f / 11 * .75f, 378f / 11 * .75f);
+            }
+            for (int k = 0; k < grid.getWalls().size(); k++) {
+                image(wallImage, height / 11 * .75f * grid.getWalls().get(k).getCol(),
+                        height / 11 * .75f * grid.getWalls().get(k).getRow(), 378f / 11 * .75f, 378f / 11 * .75f);
+            }
+            // popStyle();
+
             if (grid != null && !grid.gameOver) {
                 
 //                for (ArrayList<Float> line : lines) {
@@ -115,17 +104,7 @@ public class DrawingSurface extends PApplet {
 //                }
                 
                 grid.draw(this, 0, 0, height * .75f, height * .75f);
-                pushStyle();
-                for (int j = 0; j < insectImages.size(); j++) {
-                    image(insectImages.get(j), height/11*.75f*grid.getInsects().get(j).getCol(),height/11*.75f*grid.getInsects().get(j).getRow(),  378f/11*.75f, 378f/11*.75f);
-                }
-                for (int k = 0; k < plantImages.size(); k++) {
-                    image(plantImages.get(k), height/11*.75f*grid.getPlants().get(k).getCol(),height/11*.75f*grid.getPlants().get(k).getRow(),  378f/11*.75f, 378f/11*.75f);                
-                }
-                for (int k = 0; k < wallImages.size(); k++) {
-                    image(wallImages.get(k), height/11*.75f*grid.getWalls().get(k).getCol(),height/11*.75f*grid.getWalls().get(k).getRow(),  378f/11*.75f, 378f/11*.75f);                
-                }
-                popStyle();
+               
                 pushStyle();
                 stroke(0, 0, 0);
                 noFill();
@@ -187,7 +166,6 @@ public class DrawingSurface extends PApplet {
                         if (!hasWall(initWalls, (Wall) grid.get(cellCoord.x, cellCoord.y))) {
                             if (!grid.toggleWall(cellCoord.x, cellCoord.y)) {
                                 materials++;
-
                             } else {
                                 grid.toggleWall(cellCoord.x, cellCoord.y);
                             }
@@ -206,14 +184,14 @@ public class DrawingSurface extends PApplet {
             if (cellCoord != null && coins >= 0) {
                 if (coins != 0) {
                     if (grid.togglePlant(cellCoord.x, cellCoord.y)) {
-                        coins--;
+                        coins -= 10;
 
                     } else {
                         grid.togglePlant(cellCoord.x, cellCoord.y);
                         if (grid.get(cellCoord.x, cellCoord.y) instanceof Plant) {
                             if (!hasPlant(initPlants, (Plant) grid.get(cellCoord.x, cellCoord.y))) {
-                                if (coins < 15) {
-                                    coins++;
+                                if (coins < 200) {
+                                    coins += 5;
                                 }
                                 grid.togglePlant(cellCoord.x, cellCoord.y);
                             }
@@ -227,8 +205,7 @@ public class DrawingSurface extends PApplet {
                     if (grid.get(cellCoord.x, cellCoord.y) instanceof Plant) {
                         if (!hasPlant(initPlants, (Plant) grid.get(cellCoord.x, cellCoord.y))) {
                             if (!grid.togglePlant(cellCoord.x, cellCoord.y)) {
-                                coins++;
-
+                                coins += 5;
                             } else {
                                 grid.togglePlant(cellCoord.x, cellCoord.y);
                             }
