@@ -25,12 +25,13 @@ public class DrawingSurface extends PApplet {
 
     // When you progress to a new prompt, modify this field.
     private Grid grid = new Grid("maps/test4.txt");
-    private int materials, coins;
+    private int materials, coins, health;
     private int time;
     private int gameCond;
     private GButton start;
     private GLabel coinDisplay;
     private GLabel matDisplay;
+    private GLabel healthDisplay;
     private GLabel instructions;
     private ArrayList<Wall> initWalls = grid.getWalls();
     private ArrayList<Plant> initPlants = grid.getPlants();
@@ -54,6 +55,7 @@ public class DrawingSurface extends PApplet {
         coinDisplay = new GLabel(this, 400, 100, 560, 20, "");
         start = new GButton(this, 400, 60, 100, 40, "Press to Play");
         matDisplay = new GLabel(this, 400, 140, 560, 20, "");
+        healthDisplay = new GLabel(this, 400, 180, 560, 20, "");
         instructions = new GLabel(this, height/4, height/4, 560, 160, "");
         insectImage = loadImage("Ant.png");
         wallImage = loadImage("Wall.png");
@@ -77,10 +79,12 @@ public class DrawingSurface extends PApplet {
 
         } else if (gameCond % 2 == 1) {
 
-            
+            health = grid.getFruit().getHealth();
             instructions.setText("");
             coinDisplay.setText("Coins: " + coins);
             matDisplay.setText("Materials: " + materials);
+            healthDisplay.setText("Health remaining: " + health);
+
             time++;
             start.setText("Restart");
 
@@ -134,7 +138,6 @@ public class DrawingSurface extends PApplet {
             } else if (grid.gameOver) {
                 coinDisplay.setText("");
                 matDisplay.setText("");
-
                 this.text("GAME OVER", height / 2, height / 2);
                 start.setText("Play again?");
 
