@@ -113,6 +113,7 @@ public class DrawingSurface extends PApplet {
                     grid = new Grid("maps/test4.txt");
                 }
             }
+            
             firstTime = false;
             
             map2.setEnabled(false);
@@ -131,6 +132,12 @@ public class DrawingSurface extends PApplet {
 
             if (time % 30 == 0 && !grid.gameOver) {
                 coins += grid.act(this);
+            }
+            
+            if (time % 1500 == 0 && !grid.gameOver) {
+                for (int j = 0; j < grid.getInsects().size(); j++) {
+                    grid.getInsects().get(j).increaseHealth(20);
+                }
             }
             // pushStyle();
             for (int j = 0; j < grid.getInsects().size(); j++) {

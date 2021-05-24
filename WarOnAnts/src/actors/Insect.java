@@ -64,6 +64,10 @@ public class Insect {
     public int getHealth() {
         return health;
     }
+    
+    public void increaseHealth(int x) {
+        health += x;
+    }
 
     /**
      * @return The length of optimalPath.
