@@ -27,7 +27,7 @@ public class Grid extends GridTemplate {
     private Fruit fruit;
     public int antHoleRow;
     public int antHoleCol;
-    private ArrayList<ArrayList<Float>> lines = new ArrayList<ArrayList<Float>>();
+    public ArrayList<ArrayList<Float>> lines = new ArrayList<ArrayList<Float>>();
 
     public boolean gameOver = false;
 
