@@ -6,17 +6,17 @@ Revision: 5-23-2021
 Introduction: 
 
 Our program is a tower defense game in which the user will be given a starting and an ending point and will have to build a maze. 
-The player will have a limited amount of materials to build with, and once they complete, the maze ants will begin entering from the starting point. 
-The player will now have to place towers to prevent the ants from reaching the endpoint. 
+The player will have a limited amount of materials to build with, and once they complete, the maze ants will begin entering from the starting point (hole). 
+The player will now have to place towers to prevent the ants from reaching the fruit. 
 If a certain number of ants reach the end, the game ends. This program is created to be a game that one plays in one’s free time. 
 The story for the game revolves around an army of ants and other insects trying to reach the player’s fruit and 
-the player who is placing blockades and plants to stop the ants from eating his fruits. 
+the player who is placing blockades and plants to stop the ants from eating their fruit. 
 As for the rules, the player will be given a set number of materials (walls) to create a maze. Plants can only be placed on walls and doing so costs coins, 
-which will be obtained by killing ants. The player can place walls and plants anytime he wants. 
-The player will be able to remove a plant from on top of a blockade and get back some coins as a refund. The objective of the game is to survive for as long as possible. 
+which will be obtained by killing ants. The player can place and remove walls or plants anytime. 
+The player will be able to remove a plant from on top of a wall and get back some coins as a refund. The objective of the game is to survive for as long as possible. 
 The primary features of the program are: creating a maze for the ants, placing plants on top of the maze, and protecting the fruit from the ants.   
- 
- 
+
+
 Instructions:
 
 When the program runs, the player will be asked to choose a map. 
@@ -27,9 +27,10 @@ By selecting the location, the player will be able to place a plant or a wall.
 Plants are only able to be placed on walls and to place plants, the player must right-click on the wall. 
 The player can only place walls on empty spots and must left-click on that spot. 
 The player cannot remove the walls around the edge of the grid but can remove other walls. 
-The player can be refunded if he has less than 5 materials or less than 200 coins. 
-Once the player presses the play button, a wave of ants will begin to appear. 
-When an insect dies, it gives 1 coin, which the player can use to place more plants. 
+The player can be refunded materials by removing walls if the material count is less than 5. 
+The player can be refunded coins by uprooting plants.
+Once the player chooses the map, the map will be loaded, and the ants will spawn out of the hole. 
+When an ant dies, it gives 1 coin, which the player can use to place more plants. 
 If the player loses, they will be given the choice to play again and choose between the map selections. 
 
 
