@@ -1,13 +1,13 @@
 
 
-import java.awt.Image;
+
 import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.awt.geom.Point2D;
+
+
 import java.util.ArrayList;
 
 import actors.*;
-import g4p_controls.GAlign;
+
 import g4p_controls.GButton;
 import g4p_controls.GEvent;
 import g4p_controls.GLabel;

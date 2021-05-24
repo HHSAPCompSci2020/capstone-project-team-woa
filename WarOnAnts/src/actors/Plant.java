@@ -2,7 +2,6 @@ package actors;
 
 import java.util.ArrayList;
 
-import grid.Grid;
 import processing.core.PApplet;
 
 /**

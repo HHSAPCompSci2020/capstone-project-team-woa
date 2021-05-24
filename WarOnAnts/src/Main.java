@@ -7,7 +7,6 @@ import processing.core.PApplet;
 
 public class Main {
 
-    private DrawingSurface surface;
 
     /**
      * The main method.
