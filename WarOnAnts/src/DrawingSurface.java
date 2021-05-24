@@ -102,7 +102,8 @@ public class DrawingSurface extends PApplet {
             
             instructions.setText(
                     "When you enter, ants will start climbing out of\ntheir hole and try to eat the fruit.\nYour goal is to stop the ants by placing plants and walls.\n Plants damage the ants and walls block the ants.\nPlace or remove plants by right clicking on a location with a wall.\nDo the same for walls but use left click and place on empty locations\nIf the ants eat the fruit you lose.\nYou can still try again.");
-            
+            coins = 15;
+            materials = 5;
         } else if (gameCond % 2 == 1) {
             
             if (firstTime) {
