@@ -91,6 +91,6 @@ Added more methods to my assigned classes and a method to the Grid class.
 Added javadoc comments for my new methods. Added the ability to add plants to the grid. 
 Added coin and material system for placing plants and walls. Enlarged the grid to make it easier for the eye. 
 Added images for ant, plant, and wall and added buttons to play and restart the game. 
-Added instructions for the user to understand the game. Updated readme and UML and added them to project.
+Added instructions for the user to understand the game. Updated README and UML and added them to project.
 
 G4P: Allowed us to add buttons and text to the screen
