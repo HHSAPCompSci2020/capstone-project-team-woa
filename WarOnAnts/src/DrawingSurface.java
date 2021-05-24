@@ -1,4 +1,5 @@
 
+
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -113,6 +114,7 @@ public class DrawingSurface extends PApplet {
                     grid = new Grid("maps/test4.txt");
                 }
             }
+            
             firstTime = false;
             
             map2.setEnabled(false);
@@ -132,6 +134,14 @@ public class DrawingSurface extends PApplet {
             if (time % 30 == 0 && !grid.gameOver) {
                 coins += grid.act(this);
             }
+            if(time % 2500 == 0 && !grid.gameOver) {
+                int index = (int) (Math.random()*grid.getPlants().size());
+                if(index != 0) {
+                    grid.getPlants().get(index).levelUp();
+                }
+                
+            }
+            
             // pushStyle();
             for (int j = 0; j < grid.getInsects().size(); j++) {
                 image(insectImage, height / 11 * .75f * grid.getInsects().get(j).getCol(),
@@ -250,7 +260,7 @@ public class DrawingSurface extends PApplet {
                         if (grid.get(cellCoord.x, cellCoord.y) instanceof Plant) {
                             if (!hasPlant(initPlants, (Plant) grid.get(cellCoord.x, cellCoord.y))) {
                                 if (coins < 200) {
-                                    coins += 5;
+                                     grid.get(cellCoord.x, cellCoord.y);
                                 }
                                 grid.togglePlant(cellCoord.x, cellCoord.y);
                             }
@@ -264,7 +274,7 @@ public class DrawingSurface extends PApplet {
                     if (grid.get(cellCoord.x, cellCoord.y) instanceof Plant) {
                         if (!hasPlant(initPlants, (Plant) grid.get(cellCoord.x, cellCoord.y))) {
                             if (!grid.togglePlant(cellCoord.x, cellCoord.y)) {
-                                coins += 5;
+                                coins += levelOfPlant(grid.getPlants(),cellCoord.x, cellCoord.y);
                             } else {
                                 grid.togglePlant(cellCoord.x, cellCoord.y);
                             }
@@ -295,7 +305,7 @@ public class DrawingSurface extends PApplet {
         } else if (button == playAgain && event == GEvent.CLICKED) {
             gameCond = 0;
             firstTime = true;
-        } 
+        }
     }
 
     /**
@@ -311,6 +321,20 @@ public class DrawingSurface extends PApplet {
         }
 
         return false;
+    }
+   /**
+    * @param list List of plants 
+    * @param row Row of desired plant
+    * @param col Column of desired plant
+    * @return Returns the level of desired plant
+    */ 
+    public int levelOfPlant(ArrayList<Plant> list, int row, int col ) {
+        for (Plant p : list){
+            if(p.getCol()==col && p.getRow()==row) {
+                return p.getLevel();
+            }
+        }
+        return 0;
     }
 
     /**

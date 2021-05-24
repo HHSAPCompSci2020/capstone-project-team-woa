@@ -131,9 +131,6 @@ public class Plant {
      */
     public void levelUp() {
         level++;
-        if (level < 4) {
-            range++;
-        }
 
     }
 
@@ -156,6 +153,12 @@ public class Plant {
      */
     public int getCol() {
         return home.getCol();
+    }
+    /**
+     * @return the level of this plant
+     */
+    public int getLevel() {
+        return level;
     }
 
     /**
