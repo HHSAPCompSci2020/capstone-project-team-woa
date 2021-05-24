@@ -134,14 +134,23 @@ public class DrawingSurface extends PApplet {
             if (time % 30 == 0 && !grid.gameOver) {
                 coins += grid.act(this);
             }
-            if(time % 2500 == 0 && !grid.gameOver) {
+
+            if(time % 100 == 0 && !grid.gameOver) {
                 int index = (int) (Math.random()*grid.getPlants().size());
                 if(index != 0) {
-                    grid.getPlants().get(index).levelUp();
+                    grid.getPlants().get(index).levelUp();                            
                 }
                 
             }
             
+
+            
+            if (time % 1500 == 0 && !grid.gameOver) {
+                for (int j = 0; j < grid.getInsects().size(); j++) {
+                    grid.getInsects().get(j).increaseHealth(20);
+                }
+            }
+
             // pushStyle();
             for (int j = 0; j < grid.getInsects().size(); j++) {
                 image(insectImage, height / 11 * .75f * grid.getInsects().get(j).getCol(),
